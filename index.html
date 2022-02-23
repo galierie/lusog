@@ -1,64 +1,180 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
         <title>Anthropometric Calculator</title>
-        <link href="css/style.css" type="text/css" rel="stylesheet" />
-    </head>
-    <body onload="">
-        <div id="form">
-            <div>
-                <label for="height">Height (in meters): </label>
-                <input type="text" id="height" name="height" />
-            </div>
 
-            <div>
-                <label for="weight">Weight (in kilograms): </label>
-                <input type="text" id="weight" name="weight" />
-            </div>
+        <link href="css/styles.css" type="text/css" rel="stylesheet" />
 
-            <div>
-                <label for="age">Age (in months): </label>
-                <input type="text" id="age" name="age" />
-            </div>
-
-            <div>
-                <label for="sex">Sex (biological; M/F): </label>
-                <input type="text" id="sex" name="sex" />
-            </div>
-
-            <button id="submit">Submit</button>
-        </div>
-
-        <div class="status">
-            <label for="growth">Growth Status: </label>
-            <p id="growth">brr</p>
-        </div>
-
-        <div class="status">
-            <label for="nutrition">Nutritional Status: </label>
-            <p id="nutrition">grr</p>
-        </div>
-
-        <div class="status">
-            <label for="bmi">BMI: </label>
-            <p id="bmi">bmi</p>
-        </div>
-
-        <div class="chart-wrapper">
-            <label for="w4a_girl">Weight for Age Chart (F, 0-5 yrs): </label>
-            <canvas id="w4a_girl"></canvas>
-        </div>
-
-        <div class="chart-wrapper">
-            <label for="w4a_boy">Weight for Age Chart(M, 0-5 yrs): </label>
-            <canvas id="w4a_boy"></canvas>
-        </div>
-        
         <script src="https://d3js.org/d3.v7.min.js" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js" type="text/javascript"></script>
-        <script src="js/script.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div id="calculators">
+            <button id="add-kids">+</button>
+        </div>
+
+        <div id="templates" style="display: none;">
+            <div id="kid-amount-temp">
+                <div class="kid-amount-modal">
+                    <p>How many additional kids are you going to need nutritional statuses for?</p>
+                    <input type="text">
+                    <button>Submit</button>
+                </div>
+            </div>
+
+            <div id="kid-name-temp">
+                <div class="kid-name-modal">
+                    <p>Please enter the name of the kid or select a kid from the dropdown.</p>
+                    <button>Submit</button>
+                </div>
+            </div>
+
+            <div class="calc" id="calc-temp">
+                <div class="form">
+                    <div class="kid-name"></div>
+
+                    <div>
+                        <label for="age">Age (in months): </label>
+                        <input type="text" id="age">
+                    </div>
+            
+                    <div>
+                        <label for="sex">Sex (biological; M/F): </label>
+                        <input type="text" id="sex">
+                    </div>
+                </div>
+                
+                <div class="form">
+                    <div>
+                        <label for="height">Height (in meters): </label>
+                        <input type="text" id="height">
+                    </div>
+            
+                    <div>
+                        <label for="weight">Weight (in kilograms): </label>
+                        <input type="text" id="weight">
+                    </div>
+                    
+                    <button class="submit">Submit</button>
+                </div>
+
+                <div class="status bmi-div">
+                    <label for="bmi">BMI: </label>
+                    <p id="bmi">bmi</p>
+                </div>
+            
+                <div class="statuses"></div>
+
+                <div class="charts"></div>
+            </div>
+
+            <div id="status-temp">
+                <div class="status" id="w4a-temp">
+                    <label for="w4a">Weight-for-Age: </label>
+                    <p id="w4a"></p>
+                </div>
+
+                <div class="status" id="h4a-temp">
+                    <label for="h4a">Height-for-Age: </label>
+                    <p id="h4a"></p>
+                </div>
+
+                <div class="status" id="bmi4a-temp">
+                    <label for="bmi4a">BMI-for-Age: </label>
+                    <p id="bmi4a"></p>
+                </div>
+
+                <div class="status" id="w4h-temp">
+                    <label for="w4h">Weight-for-Height: </label>
+                    <p id="w4h"></p>
+                </div>
+            </div>
+
+            <div id="chart-temp">
+                <!-- Weight-for-Age -->
+                <div class="chart-wrapper" id="w4a-boy-toddler-temp">
+                    <label for="-w4a-boy-toddler">Weight-for-Age Chart (M, 0-5 yrs): </label>
+                    <canvas id="-w4a-boy-toddler"></canvas>
+                </div>
+    
+                <div class="chart-wrapper" id="w4a-girl-toddler-temp">
+                    <label for="-w4a-girl-toddler">Weight-for-Age Chart (F, 0-5 yrs): </label>
+                    <canvas id="-w4a-girl-toddler"></canvas>
+                </div>
+    
+                <div class="chart-wrapper" id="w4a-boy-kid-temp">
+                    <label for="-w4a-boy-kid">Weight-for-Age Chart (M, 5-10 yrs): </label>
+                    <canvas id="-w4a-boy-kid"></canvas>
+                </div>
+    
+                <div class="chart-wrapper" id="w4a-girl-kid-temp">
+                    <label for="-w4a-girl-kid">Weight-for-Age Chart (F, 5-10 yrs): </label>
+                    <canvas id="-w4a-girl-kid"></canvas>
+                </div>
+    
+                <!-- Height-for-Age -->
+                <div class="chart-wrapper" id="h4a-boy-toddler-temp">
+                    <label for="-h4a-boy-toddler">Height-for-Age Chart (M, 0-5 yrs): </label>
+                    <canvas id="-h4a-boy-toddler"></canvas>
+                </div>
+    
+                <div class="chart-wrapper" id="h4a-girl-toddler-temp">
+                    <label for="-h4a-girl-toddler">Height-for-Age Chart (F, 0-5 yrs): </label>
+                    <canvas id="-h4a-girl-toddler"></canvas>
+                </div>
+    
+                <div class="chart-wrapper" id="h4a-boy-kid-temp">
+                    <label for="-h4a-boy-kid">Height-for-Age Chart (M, 5-19 yrs): </label>
+                    <canvas id="-h4a-boy-kid"></canvas>
+                </div>
+    
+                <div class="chart-wrapper" id="h4a-girl-kid-temp">
+                    <label for="-h4a-girl-kid">Height-for-Age Chart (F, 5-19 yrs): </label>
+                    <canvas id="-h4a-girl-kid"></canvas>
+                </div>
+    
+                <!-- BMI-for-Age -->
+                <div class="chart-wrapper" id="bmi4a-boy-toddler-temp">
+                    <label for="-bmi4a-boy-toddler">BMI-for-Age Chart (M, 0-5 yrs): </label>
+                    <canvas id="-bmi4a-boy-toddler"></canvas>
+                </div>
+    
+                <div class="chart-wrapper" id="bmi4a-girl-toddler-temp">
+                    <label for="-bmi4a-girl-toddler">BMI-for-Age Chart (F, 0-5 yrs): </label>
+                    <canvas id="-bmi4a-girl-toddler"></canvas>
+                </div>
+    
+                <div class="chart-wrapper" id="bmi4a-boy-kid-temp">
+                    <label for="-bmi4a-boy-kid">BMI-for-Age Chart (M, 5-19 yrs): </label>
+                    <canvas id="-bmi4a-boy-kid"></canvas>
+                </div>
+    
+                <div class="chart-wrapper" id="bmi4a-girl-kid-temp">
+                    <label for="-bmi4a-girl-kid">BMI-for-Age Chart (F, 5-19 yrs): </label>
+                    <canvas id="-bmi4a-girl-kid"></canvas>
+                </div>
+    
+                <!-- Weight-for-Height -->
+                <div class="chart-wrapper" id="w4h-boy-toddler-temp">
+                    <label for="-w4h-boy-toddler">Weight-for-Height Chart (M, 0-5 yrs): </label>
+                    <canvas id="-w4h-boy-toddler"></canvas>
+                </div>
+    
+                <div class="chart-wrapper" id="w4h-girl-toddler-temp">
+                    <label for="-w4h-girl-toddler">Weight-for-Height Chart (F, 0-5 yrs): </label>
+                    <canvas id="-w4h-girl-toddler"></canvas>
+                </div>
+            </div>
+        </div>
+    
+
+        <!-- JavaScripts -->
+        <script src="js/calculator/base-data.js" type="text/javascript"></script>
+        <script src="js/calculator/make-chart.js" type="text/javascript"></script>
+        <script src="js/calculator/calc-input.js" type="text/javascript"></script>
+        <script src="js/calculator/init-calc.js" type="text/javascript"></script>
     </body>
 </html>
