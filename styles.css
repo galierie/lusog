@@ -1,0 +1,20 @@
+#form {
+    display: flex;
+    justify-content: space-around;
+}
+
+.status {
+    margin: 20px 0;
+    display: flex;
+}
+
+.status p {
+    margin: 0;
+    margin-left: 2px;
+}
+
+#w4a_girl {
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    width: 400px;
+    height: 200px;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Anthropometric Calculator</title>
+        <link href="css/style.css" type="text/css" rel="stylesheet" />
+    </head>
+    <body onload="">
+        <div id="form">
+            <div>
+                <label for="height">Height (in meters): </label>
+                <input type="text" id="height" name="height" />
+            </div>
+
+            <div>
+                <label for="weight">Weight (in kilograms): </label>
+                <input type="text" id="weight" name="weight" />
+            </div>
+
+            <div>
+                <label for="age">Age (in months): </label>
+                <input type="text" id="age" name="age" />
+            </div>
+
+            <div>
+                <label for="sex">Sex (biological; M/F): </label>
+                <input type="text" id="sex" name="sex" />
+            </div>
+
+            <button id="submit">Submit</button>
+        </div>
+
+        <div class="status">
+            <label for="growth">Growth Status: </label>
+            <p id="growth">brr</p>
+        </div>
+
+        <div class="status">
+            <label for="nutrition">Nutritional Status: </label>
+            <p id="nutrition">grr</p>
+        </div>
+
+        <div class="status">
+            <label for="bmi">BMI: </label>
+            <p id="bmi">bmi</p>
+        </div>
+
+        <div>
+            <label for="w4a_girl">Weight for Age Chart (F, 0-5 yrs):</label>
+            <canvas id="w4a_girl"></canvas>
+        </div>
+        
+        <script src="https://d3js.org/d3.v7.min.js" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js" type="text/javascript"></script>
+        <script src="js/script.js" type="text/javascript"></script>
+    </body>
+</html>
