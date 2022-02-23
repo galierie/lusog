@@ -57,9 +57,17 @@ function loadData(obj){
 
     return;
 }
-
 //List of sheets where base z-score data is stored
 const gSheets = [
+    /*
+    Object Template
+    {
+        canvasID: "-${growth chart code}-${girl/boy}-${toddler (0-5)/kid (5-19)}",
+        title: "${Growth Chart} (${M/F}, ${Age Range} yrs)",
+        gsID:
+    },
+    */
+
     //Weight-for-age
     {
         canvasID: "-w4a-boy-toddler",
@@ -73,15 +81,37 @@ const gSheets = [
     },
     {
         canvasID: "-w4a-boy-kid",
-        title: "Weight for Age (M, 5-19 yrs)",
+        title: "Weight for Age (M, 5-10 yrs)",
         gsID: 1189429997,
     },
     {
         canvasID: "-w4a-girl-kid",
-        title: "Weight for Age (F, 5-19 yrs)",
+        title: "Weight for Age (F, 5-10 yrs)",
         gsID: 362934378,
     },
-    //Height-for-age
+    
+    //Height-for-age    
+    {
+        canvasID: "-h4a-boy-toddler",
+        title: "Height for Age (M, 0-5 yrs)",
+        gsID: 2024421291,
+    },
+    {
+        canvasID: "-h4a-boy-kid",
+        title: "Height for Age (M, 5-19 yrs)",
+        gsID: 998321320,
+    },
+    {
+        canvasID: "-h4a-girl-toddler",
+        title: "Height for Age (F, 0-5 yrs)",
+        gsID: 2081201493,
+    },
+    {
+        canvasID: "-h4a-girl-kid",
+        title: "Height for Age (F, 5-19 yrs)",
+        gsID: 1844474538,
+    },
+
     //BMI-for-age
     {
         canvasID: "-bmi4a-girl-toddler",
@@ -89,10 +119,21 @@ const gSheets = [
         gsID: 1204570084,
     },
     {
+        canvasID: "-bmi4a-boy-toddler",
+        title: "BMI for Age (M, 0-5 yrs)",
+        gsID: 1334077550,
+    },
+    {
         canvasID: "-bmi4a-girl-kid",
         title: "BMI for Age (F, 5-19 yrs)",
         gsID: 307989340,
     },
+    {
+        canvasID: "-bmi4a-boy-kid",
+        title: "BMI for Age (M, 5-19 yrs)",
+        gsID: 1408176015,
+    },
+        
     //Weight-for-height
 ];
 gSheets.forEach(sheet => loadData(sheet));
