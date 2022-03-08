@@ -45,23 +45,47 @@ function buildNutriStatus(anthroType, blocking, kidCalc){
 }
 
 //Builds the z-score calculator per kid
-function buildCalc(kidName){
-    //Adds IDs to it to be able to specify it
-    let kidCalc = document.getElementById("calc-temp").cloneNode(true); //Entire Calculator
-    kidCalc.id = kidName;
+function buildCalc(){
+    let kidCalc = document.getElementById("calc-temp").cloneNode(true), kidName = ""; 
+    
+    //Adds IDs to it to be able to specify it and changes IDs to reflect new kid name
+    kidCalc.getElementsByTagName("input")[0].onchange = () => {
+        kidName = "";
+        kidName = kidCalc.getElementsByTagName("input")[0].value;
+        kidCalc.id = kidName; //Entire Calculator
 
-    kidCalc.getElementsByClassName("kid-name")[0].innerHTML = kidName;
+        //Input Fields and Labels
+        let calcInputs = kidCalc.getElementsByTagName("input"), 
+            labels = kidCalc.getElementsByTagName("label"); 
+        for(let j = 0; j < calcInputs.length; j++){
+            let field = calcInputs[j].id.split("-");
+            calcInputs[j].id = `${kidName}-${field[1]}`;
+            labels[j].htmlFor = calcInputs[j].id;
+        }
 
-    let calcInputs = kidCalc.getElementsByTagName("input"), //Input Fields
-        labels = kidCalc.getElementsByTagName("label"); //Input Labels
-    for(let j = 0; j < calcInputs.length; j++){
-        calcInputs[j].id = kidName + "-" + calcInputs[j].id;
-        labels[j].htmlFor = calcInputs[j].id;
+        //BMI Status
+        let bmiDiv = kidCalc.getElementsByClassName("bmi-div")[0]; 
+        bmiDiv.getElementsByTagName("p")[0].id = `${kidName}-bmi`;
+        bmiDiv.getElementsByTagName("label")[0].htmlFor = `${kidName}-bmi`;
+
+        //Anthropometric Indicator Statuses and Charts
+        atIndic.forEach(at => {
+            let atID = `${kidName}-${at}`,
+                atStatus = kidCalc.getElementsByClassName(`${at}-status`)[0],
+                atChart = kidCalc.getElementsByClassName(`${at}-chart`)[0];
+
+            if(atStatus){
+                atStatus.getElementsByTagName("p")[0].id = `${atID}-status`;
+                atStatus.getElementsByTagName("label")[0].htmlFor = `${atID}-status`;
+            }
+
+            if(atChart){
+                atChart.getElementsByTagName("canvas")[0].id = `${atID}-chart`;
+                atChart.getElementsByTagName("label")[0].htmlFor = `${atID}-chart`;
+            }
+        });
     }
 
-    let bmiDiv = kidCalc.getElementsByClassName("bmi-div")[0]; //BMI Status
-    bmiDiv.getElementsByTagName("p")[0].id = `${kidName}-bmi`;
-    bmiDiv.getElementsByTagName("label")[0].htmlFor = `${kidName}-bmi`;
 
     //Calls functions to process the input
     kidCalc.getElementsByClassName("submit")[0].addEventListener('click', () => {
@@ -104,67 +128,17 @@ function buildCalc(kidName){
         
     });
 
-    document.getElementById("calculators").insertBefore(kidCalc, document.getElementById("add-kids"));
-
-    return;
-}
-
-//To be updated
-//Gets the names of the kids to be anthropometrically measured
-function getKidNames(kidAmount){
-    let kidNameDiv = document.getElementById("kid-name-temp").cloneNode(true);
-    kidNameDiv.id = "kid-name-div";
-
-    let kidNameSubmit = kidNameDiv.getElementsByTagName("button")[0];
-
-    //Adds input fields for names according to the number of kids to be measured
-    for(let i = 0; i < kidAmount; i++){
-        let kidNameInput = document.createElement("input");
-        kidNameInput.type = "text";
-        kidNameDiv.getElementsByClassName("kid-name-modal")[0].insertBefore(kidNameInput, kidNameSubmit);
-    }
-
-    //Adds an event listener to the kid name submit button
-    kidNameSubmit.addEventListener('click', () => {
-        for(let i = 0; i < kidAmount; i++){
-            let kidName = kidNameDiv.getElementsByTagName("input")[i].value;
-            if(kidName === null){ /*alert grrrr*/ }
-            else { buildCalc(kidName); }
-        }
-
-        document.getElementById("calculators").removeChild(kidNameDiv);
-    });
-
-    document.getElementById("calculators").appendChild(kidNameDiv);
+    document.getElementById("calculators").insertBefore(kidCalc, document.getElementById("kid-amount-div"));
 
     return;
 }
 
 //Gets the number of kids to be anthropometrically measured
-function getKidAmount(kidAmountDiv){
-    let kidAmount;
-    kidAmountDiv.getElementsByTagName("button")[0].addEventListener('click', () => {
-        kidAmount = +`${kidAmountDiv.getElementsByTagName("input")[0].value}`;
-        document.getElementById("calculators").removeChild(kidAmountDiv);
-        getKidNames(kidAmount);
-    });
-    document.getElementById("calculators").appendChild(kidAmountDiv);
-
+document.getElementById("add-kids").onclick = () => {
+    let kidAmount = +`${document.getElementById("kid-amount").value}`;
+    for(let i = 0; i < kidAmount; i++){ buildCalc(); }
     return;
 }
-
-window.addEventListener('load', () => {
-    let kidAmountDiv = document.getElementById("kid-amount-temp").cloneNode(true);
-    kidAmountDiv.id = "kid-amount-div";
-    kidAmountDiv.getElementsByTagName("p")[0].innerHTML = "How many kids are you going to need nutritional statuses for?";
-    getKidAmount(kidAmountDiv);
-});
-
-document.getElementById("add-kids").addEventListener('click', () => {
-    let kidAmountDiv = document.getElementById("kid-amount-temp").cloneNode(true);
-    kidAmountDiv.id = "kid-amount-div";
-    getKidAmount(kidAmountDiv);
-});
 
 /*
 Sources: 
