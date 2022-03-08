@@ -5,7 +5,7 @@
 //Interprets nutritional status per chart
 function interpretW4A(anthroID, w, a){
     let zsData = w4aData.find(e => e[0] === anthroID),
-        bmx = (0 <= a <= 60) ? a : a - 60;
+        bmx = (0 <= a && a <= 60) ? a : a - 60;
 
     let dataset = zsData[1][1].map(e => { return e.data[bmx]; });
 
@@ -17,7 +17,7 @@ function interpretW4A(anthroID, w, a){
 
 function interpretH4A(anthroID, h, a){
     let zsData = h4aData.find(e => e[0] === anthroID),
-        bmx = (0 <= a <= 60) ? a : a - 60;
+        bmx = (0 <= a && a <= 60) ? a : a - 60;
 
     let dataset = zsData[1][1].map(e => { return e.data[bmx]; });
 
@@ -29,7 +29,7 @@ function interpretH4A(anthroID, h, a){
 
 function interpretBMI4A(anthroID, bmi, a){
     let zsData = bmi4aData.find(e => e[0] === anthroID),
-        bmx = (0 <= a <= 60) ? a : a - 60;
+        bmx = (0 <= a && a <= 60) ? a : a - 60;
 
     let dataset = zsData[1][1].map(e => { return e.data[bmx]; });
 
@@ -44,6 +44,7 @@ function interpretBMI4A(anthroID, bmi, a){
 function interpretW4H(anthroID, w, h){
     let zsData = w4aData.find(e => e[0] === anthroID),
         bmx = h;
+        
     let dataset = zsData[1][1].map(e => { return e.data[bmx]; });
 
     if(w < dataset[0]){ return "Severe Wasting/Severe Acute Malnutrition (SAM)"; } // z < -3
@@ -58,8 +59,8 @@ function interpretW4H(anthroID, w, h){
 //Processes the input and saves it to a csv file dedicated to a child
 function newData(kidName, anthroType, blocking, bmy, bmx){
     //Get chart ID
-    let anthroID = `-${anthroType}-${blocking}`;
-
+    let anthroID = `${anthroType}-${blocking}`;
+    
     //Interpret z-score
     let nutriStatus = "grr";
     switch(anthroType){
@@ -76,11 +77,11 @@ function newData(kidName, anthroType, blocking, bmy, bmx){
             nutriStatus = interpretW4H(anthroID, bmy, bmx);
             break;
     }
-    document.getElementById(kidName + "-" + anthroType).innerHTML = nutriStatus;
+    document.getElementById(`${kidName}-${anthroType}-status`).innerHTML = nutriStatus;
 
     //New z-score chart
-    let grps = blocking.split("-");
-    let limit = (grps[1] === "toddler") ? [0, 61] : [61, 229];
+    let [ , ageGroup] = blocking.split("-");
+    let limit = (ageGroup === "toddler") ? [0, 61] : [61, 229];
 
     let anthroData = [];
     for(let i = limit[0]; i < limit[1]; i++){ (bmx === i) ? anthroData.push(bmy) : anthroData.push(null); }
