@@ -77,8 +77,8 @@ function buildNutriStatus(kidCalc, anthroType){
 
 //Builds the z-score calculator per kid
 function buildCalc(){
-    let kidCalc = document.getElementById("calc-temp").cloneNode(true), kidName = ""; 
-    
+    let kidCalc = document.getElementById("calc-temp").cloneNode(true), kidName = "";
+
     //Adds IDs to it to be able to specify it and changes IDs to reflect new kid name
     kidCalc.getElementsByTagName("input")[0].onchange = () => {
         kidName = "";
@@ -117,16 +117,20 @@ function buildCalc(){
         });
     }
 
-
     //Calls functions to process the input
-    kidCalc.getElementsByClassName("submit")[0].addEventListener('click', () => {
+    kidCalc.getElementsByClassName("submit")[0].onclick = () => {
+        if(kidName === "" || kidName === null){
+            alert("Please input your kid's name. Thank you");
+            return;
+        }
+        
         let a = +`${document.getElementById(`${kidName}-age`).value}`,
             s = document.getElementById(`${kidName}-sex`).value,
             h = +`${document.getElementById(`${kidName}-height`).value}`,
             w = +`${document.getElementById(`${kidName}-weight`).value}`;
-    
+
         //Shows the kid's BMI
-        let bmi = w / (h ** 2);
+        let bmi = w / ((h / 100) ** 2);
         document.getElementById(`${kidName}-bmi`).innerHTML = bmi;
 
         //Get the blocking 
@@ -140,24 +144,27 @@ function buildCalc(){
 
         let blocking = bioSex + "-" + ageGroup;
 
-        //Builds z-score charts and processes the input
-        if(0 <= a && a <= 120){
-            if(document.getElementById(`${kidName}-w4a-${blocking}`) === null){ buildNutriStatus("w4a", blocking, kidCalc); }
-            newData(kidName, "w4a", blocking, w, a);
-        }
+        //Builds z-score charts
+        atIndic.forEach(at => {
+            if(
+                (at === "w4a" && a > 120) ||
+                (at === "w4h" && a > 60)
+            ){
+                if(kidCalc.getElementsByClassName(`${at}-status`)[0]) kidCalc.getElementsByClassName(`${at}-status`)[0].remove();
+                if(kidCalc.getElementsByClassName(`${at}-chart`)[0]) kidCalc.getElementsByClassName(`${at}-chart`)[0].remove();
+                return;
+            }
+            
+            if(kidCalc.getElementsByClassName(`${at}-status`)[0] === undefined) buildNutriStatus(kidCalc, at);
+            if(kidCalc.getElementsByClassName(`${at}-chart`)[0] === undefined) buildNutriCharts(kidCalc, at, blocking); 
+        });
 
-        if(document.getElementById(`${kidName}-h4a-${blocking}`) === null){ buildNutriStatus("h4a", blocking, kidCalc); }
+        //Processes the input
+        if(0 <= a && a <= 120) newData(kidName, "w4a", blocking, w, a);
         newData(kidName, "h4a", blocking, h, a);
-
-        if(document.getElementById(`${kidName}-bmi4a-${blocking}`) === null){ buildNutriStatus("bmi4a", blocking, kidCalc); }
         newData(kidName, "bmi4a", blocking, bmi, a);
-
-        if(0 <= a && a <= 60){
-            if(document.getElementById(`${kidName}-w4h-${blocking}`) === null){ buildNutriStatus("w4h", blocking, kidCalc); }
-            newData(kidName, "w4h", blocking, w, h);
-        }
-        
-    });
+        //if(0 <= a && a <= 60) newData(kidName, "w4h", blocking, w, h);
+    }
 
     document.getElementById("calculators").insertBefore(kidCalc, document.getElementById("kid-amount-div"));
 
@@ -170,12 +177,3 @@ document.getElementById("add-kids").onclick = () => {
     for(let i = 0; i < kidAmount; i++){ buildCalc(); }
     return;
 }
-
-/*
-Sources: 
-    https://www.createwithdata.com/chartjs-and-csv/
-    https://www.w3schools.com/ai/ai_chartjs.asp
-    https://www.chartjs.org/
-    https://d3js.org/
-    https://www.tutorialsteacher.com/d3js/loading-data-from-file-in-d3js
-*/
