@@ -2,46 +2,77 @@
     Initializes z-score calculators per kid.
 */
 
-//Builds the visuals for the calculator results
-function buildNutriStatus(anthroType, blocking, kidCalc){
-    //Makes new nutritional status text containers
-    let atStatus = document.getElementById(`${anthroType}-temp`).cloneNode(true);
-    atStatus.id = "";
-    atStatus.getElementsByTagName("p")[0].id = `${kidCalc.id}-${anthroType}`;
-    atStatus.getElementsByTagName("label")[0].htmlFor = `${kidCalc.id}-${anthroType}`;
-    kidCalc.getElementsByClassName("statuses")[0].appendChild(atStatus);
-
+//Makes new z-score charts per kid
+function buildNutriCharts(kidCalc, anthroType, blocking){
     //Makes new z-score chart containers
-    let atChart = document.getElementById(`${anthroType}-${blocking}-temp`).cloneNode(true);
+    let atChart = document.getElementById("chart-temp").cloneNode(true),
+        atChartID = `${kidCalc.id}-${anthroType}-chart`;
+    
     atChart.id = "";
-    atChart.getElementsByTagName("canvas")[0].id = kidCalc.id + atChart.getElementsByTagName("canvas")[0].id;
-    atChart.getElementsByTagName("label")[0].htmlFor = atChart.getElementsByTagName("canvas")[0].id;
-    kidCalc.getElementsByClassName("charts")[0].appendChild(atChart);
-
-    //Makes the base z-score charts
-    let chartData;
+    atChart.classList.add(`${anthroType}-chart`);
+    atChart.getElementsByTagName("canvas")[0].id = atChartID;
+    atChart.getElementsByTagName("label")[0].htmlFor = atChartID;
+    
+    let label = `${kidCalc.id}'s `;
     switch(anthroType){
         case "w4a":
-            chartData = w4aData;
+            label += "Weight-for-Age";
             break;
         case "h4a":
-            chartData = h4aData;
+            label += "Height-for-Age";
             break;
         case "bmi4a":
-            chartData = bmi4aData;
+            label += "BMI-for-Age";
             break;
         case "w4h":
-            chartData = w4hData;
+            label += "Weight-for-Height";
             break;
     }
 
+    atChart.getElementsByTagName("label")[0].innerHTML = label;
+
+    kidCalc.getElementsByClassName("charts")[0].appendChild(atChart);
+
+    //Makes the base z-score charts
+    let atID = `${anthroType}-${blocking}`,
+        chartData = searchData(anthroType);
     baseChart(
-        kidCalc.id,
-        gSheets.find(sheet => sheet.canvasID === `-${anthroType}-${blocking}`),
-        chartData.find(cd => cd[0] === `-${anthroType}-${blocking}`)
-    );
+        kidCalc.id, 
+        gSheets.find(sheet => sheet.canvasID === atID), 
+        chartData.find(cd => cd[0] === atID)
+    ); 
 
     return;
+}
+
+//Makes new nutritional status text containers
+function buildNutriStatus(kidCalc, anthroType){
+    let atStatus = document.getElementById("status-temp").cloneNode(true),
+        atStatusID = `${kidCalc.id}-${anthroType}-status`;
+
+    atStatus.id = "";
+    atStatus.classList.add(`${anthroType}-status`);
+    atStatus.getElementsByTagName("p")[0].id = atStatusID;
+    atStatus.getElementsByTagName("label")[0].htmlFor = atStatusID;
+
+    let label = "";
+    switch(anthroType){
+        case "w4a":
+            label += "Weight-for-Age: ";
+            break;
+        case "h4a":
+            label += "Height-for-Age: ";
+            break;
+        case "bmi4a":
+            label += "BMI-for-Age: ";
+            break;
+        case "w4h":
+            label += "Weight-for-Height: ";
+            break;
+    }
+    atStatus.getElementsByTagName("label")[0].innerHTML = label;
+
+    kidCalc.getElementsByClassName("statuses")[0].appendChild(atStatus);
 }
 
 //Builds the z-score calculator per kid
