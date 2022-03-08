@@ -43,9 +43,32 @@ let w4aCharts = [],
     bmi4aCharts = [],
     w4hCharts = [];
 
+//Pick a chart
+function searchChart(anthroType){
+    let chartList;
+    switch(anthroType){
+        case "w4a":
+            chartList = w4aCharts;
+            break;
+        case "h4a":
+            chartList = h4aCharts;
+            break;
+        case "bmi4a":
+            chartList = bmi4aCharts;
+            break;
+        case "w4h":
+            chartList = w4hCharts;
+            break;
+    }
+
+    return chartList;
+}
+
 //Makes the base z-score charts
-function baseChart(n, obj, cd){
-    let chartID = n + obj.canvasID;
+function baseChart(kidName, obj, cd){
+    let [anthroType, , ] = obj.canvasID.split("-");
+    
+    let chartID = `${kidName}-${anthroType}-chart`;
     let canvasChart = new Chart(chartID, {
         type: "line",
         data: {
@@ -66,13 +89,12 @@ function baseChart(n, obj, cd){
         },
     });
 
-    let bm = obj.canvasID.split("-"),
-        chart = {
-            chartID: chartID,
-            chartVis: canvasChart,
-        };
+    let chart = {
+        chartID: chartID,
+        chartVis: canvasChart,
+    };
 
-    switch(bm[1]){
+    switch(anthroType){
         case "w4a":
             w4aCharts.push(chart);
             break;
@@ -92,35 +114,28 @@ function baseChart(n, obj, cd){
 
 //Gets the base z-score chart and adds the user inputs
 function inputChart(kidName, anthroID, anthroDataset){
-    let chartData, chartList, 
-        chartID = kidName + anthroID,
-        bm = chartID.split("-");
+    let [anthroType, bioSex, ageGroup] = anthroID.split("-");
 
-    switch(bm[1]){
-        case "w4a":
-            chartData = w4aData;
-            chartList = w4aCharts;
-            break;
-        case "h4a":
-            chartData = h4aData;
-            chartList = h4aCharts;
-            break;
-        case "bmi4a":
-            chartData = bmi4aData;
-            chartList = bmi4aCharts;
-            break;
-        case "w4h":
-            chartData = w4hData;
-            chartList = w4hCharts;
-            break;
-    }
+    let chartData = searchData(anthroType), 
+        chartList = searchChart(anthroType),
+        chartID = `${kidName}-${anthroType}-chart`;
 
     let nDatasets = chartData.find(cd => cd[0] === anthroID)[1][1].slice();
     nDatasets.push(anthroDataset);
 
     let chart = chartList.find(cl => cl.chartID === chartID).chartVis;
     chart.data.datasets = nDatasets;
+    chart.data.labels = chartData.find(cd => cd[0] === anthroID)[1][0].slice();
+    chart.options.plugins.title.text = gSheets.find(sheet => sheet.canvasID === anthroID).title;
+
     chart.update();
 
     return;
 }
+
+/*
+Sources:
+    https://www.createwithdata.com/chartjs-and-csv/
+    https://www.w3schools.com/ai/ai_chartjs.asp
+    https://www.chartjs.org/
+*/
