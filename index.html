@@ -13,28 +13,26 @@
     </head>
     <body>
         <div id="calculators">
-            <button id="add-kids">+</button>
+            <div id="kid-amount-div">
+                <label for="kid-amount">No. of Kids</label>
+                <input type="text" id="kid-amount">
+                <button id="add-kids">+</button>
+            </div>
         </div>
 
         <div id="templates" style="display: none;">
-            <div id="kid-amount-temp">
-                <div class="kid-amount-modal">
-                    <p>How many additional kids are you going to need nutritional statuses for?</p>
-                    <input type="text">
-                    <button>Submit</button>
-                </div>
-            </div>
-
-            <div id="kid-name-temp">
-                <div class="kid-name-modal">
-                    <p>Please enter the name of the kid or select a kid from the dropdown.</p>
-                    <button>Submit</button>
-                </div>
-            </div>
-
             <div class="calc" id="calc-temp">
                 <div class="form">
-                    <div class="kid-name"></div>
+                    <div class="kid-name">
+                        <label for="-input">Name: </label>
+                        <input type="text" id="-input" list="${kidName}-other-kids">
+
+                        <!--
+                            <datalist id="${kidName}-other-kids">
+                                <option value=""></option>
+                            </datalist>
+                        -->
+                    </div>
 
                     <div>
                         <label for="age">Age (in months): </label>
