@@ -13,57 +13,67 @@
     </head>
     <body>
         <div id="calculators">
-            <button id="add-kids">+</button>
+            <div id="kid-amount-div">
+                <label for="kid-amount">No. of Kids</label>
+                <input type="text" id="kid-amount">
+                <button id="add-kids">+</button>
+            </div>
         </div>
 
         <div id="templates" style="display: none;">
-            <div id="kid-amount-temp">
-                <div class="kid-amount-modal">
-                    <p>How many additional kids are you going to need nutritional statuses for?</p>
-                    <input type="text">
-                    <button>Submit</button>
-                </div>
-            </div>
-
-            <div id="kid-name-temp">
-                <div class="kid-name-modal">
-                    <p>Please enter the name of the kid or select a kid from the dropdown.</p>
-                    <button>Submit</button>
-                </div>
-            </div>
-
             <div class="calc" id="calc-temp">
                 <div class="form">
-                    <div class="kid-name"></div>
+                    <div class="kid-name">
+                        <label for="-input">Name: </label>
+                        <input type="text" id="-input" list="${kidName}-other-kids">
+
+                        <!--
+                            <datalist id="${kidName}-other-kids">
+                                <option value=""></option>
+                            </datalist>
+                        -->
+                    </div>
 
                     <div>
-                        <label for="age">Age (in months): </label>
-                        <input type="text" id="age">
+                        <label for="-date">Date Today: </label>
+                        <input type="date" id="-date">
+                    </div>
+                </div>
+
+                <div class="form">
+                    <div>
+                        <label for="-age">Age (in months): </label>
+                        <input type="text" id="-age">
                     </div>
             
                     <div>
-                        <label for="sex">Sex (biological; M/F): </label>
-                        <input type="text" id="sex">
+                        <label for="-sex">Sex (biological; M/F): </label>
+                        <input type="text" id="-sex" list="bio-sex">
+
+                        <datalist id="bio-sex">
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </datalist>
                     </div>
                 </div>
                 
                 <div class="form">
                     <div>
-                        <label for="height">Height (in meters): </label>
-                        <input type="text" id="height">
+                        <label for="-height">Height (in centimeters): </label>
+                        <input type="text" id="-height">
                     </div>
             
                     <div>
-                        <label for="weight">Weight (in kilograms): </label>
-                        <input type="text" id="weight">
+                        <label for="-weight">Weight (in kilograms): </label>
+                        <input type="text" id="-weight">
                     </div>
                     
                     <button class="submit">Submit</button>
                 </div>
 
                 <div class="status bmi-div">
-                    <label for="bmi">BMI: </label>
-                    <p id="bmi">bmi</p>
+                    <label for="${kidName}-bmi">BMI: </label>
+                    <p id="${kidName}-bmi">bmi</p>
                 </div>
             
                 <div class="statuses"></div>
@@ -71,102 +81,14 @@
                 <div class="charts"></div>
             </div>
 
-            <div id="status-temp">
-                <div class="status" id="w4a-temp">
-                    <label for="w4a">Weight-for-Age: </label>
-                    <p id="w4a"></p>
-                </div>
-
-                <div class="status" id="h4a-temp">
-                    <label for="h4a">Height-for-Age: </label>
-                    <p id="h4a"></p>
-                </div>
-
-                <div class="status" id="bmi4a-temp">
-                    <label for="bmi4a">BMI-for-Age: </label>
-                    <p id="bmi4a"></p>
-                </div>
-
-                <div class="status" id="w4h-temp">
-                    <label for="w4h">Weight-for-Height: </label>
-                    <p id="w4h"></p>
-                </div>
+            <div class="status" id="status-temp">
+                <label for="${kidName}-${anthroType}-status"></label>
+                <p id="${kidName}-${anthroType}-status"></p>
             </div>
 
-            <div id="chart-temp">
-                <!-- Weight-for-Age -->
-                <div class="chart-wrapper" id="w4a-boy-toddler-temp">
-                    <label for="-w4a-boy-toddler">Weight-for-Age Chart (M, 0-5 yrs): </label>
-                    <canvas id="-w4a-boy-toddler"></canvas>
-                </div>
-    
-                <div class="chart-wrapper" id="w4a-girl-toddler-temp">
-                    <label for="-w4a-girl-toddler">Weight-for-Age Chart (F, 0-5 yrs): </label>
-                    <canvas id="-w4a-girl-toddler"></canvas>
-                </div>
-    
-                <div class="chart-wrapper" id="w4a-boy-kid-temp">
-                    <label for="-w4a-boy-kid">Weight-for-Age Chart (M, 5-10 yrs): </label>
-                    <canvas id="-w4a-boy-kid"></canvas>
-                </div>
-    
-                <div class="chart-wrapper" id="w4a-girl-kid-temp">
-                    <label for="-w4a-girl-kid">Weight-for-Age Chart (F, 5-10 yrs): </label>
-                    <canvas id="-w4a-girl-kid"></canvas>
-                </div>
-    
-                <!-- Height-for-Age -->
-                <div class="chart-wrapper" id="h4a-boy-toddler-temp">
-                    <label for="-h4a-boy-toddler">Height-for-Age Chart (M, 0-5 yrs): </label>
-                    <canvas id="-h4a-boy-toddler"></canvas>
-                </div>
-    
-                <div class="chart-wrapper" id="h4a-girl-toddler-temp">
-                    <label for="-h4a-girl-toddler">Height-for-Age Chart (F, 0-5 yrs): </label>
-                    <canvas id="-h4a-girl-toddler"></canvas>
-                </div>
-    
-                <div class="chart-wrapper" id="h4a-boy-kid-temp">
-                    <label for="-h4a-boy-kid">Height-for-Age Chart (M, 5-19 yrs): </label>
-                    <canvas id="-h4a-boy-kid"></canvas>
-                </div>
-    
-                <div class="chart-wrapper" id="h4a-girl-kid-temp">
-                    <label for="-h4a-girl-kid">Height-for-Age Chart (F, 5-19 yrs): </label>
-                    <canvas id="-h4a-girl-kid"></canvas>
-                </div>
-    
-                <!-- BMI-for-Age -->
-                <div class="chart-wrapper" id="bmi4a-boy-toddler-temp">
-                    <label for="-bmi4a-boy-toddler">BMI-for-Age Chart (M, 0-5 yrs): </label>
-                    <canvas id="-bmi4a-boy-toddler"></canvas>
-                </div>
-    
-                <div class="chart-wrapper" id="bmi4a-girl-toddler-temp">
-                    <label for="-bmi4a-girl-toddler">BMI-for-Age Chart (F, 0-5 yrs): </label>
-                    <canvas id="-bmi4a-girl-toddler"></canvas>
-                </div>
-    
-                <div class="chart-wrapper" id="bmi4a-boy-kid-temp">
-                    <label for="-bmi4a-boy-kid">BMI-for-Age Chart (M, 5-19 yrs): </label>
-                    <canvas id="-bmi4a-boy-kid"></canvas>
-                </div>
-    
-                <div class="chart-wrapper" id="bmi4a-girl-kid-temp">
-                    <label for="-bmi4a-girl-kid">BMI-for-Age Chart (F, 5-19 yrs): </label>
-                    <canvas id="-bmi4a-girl-kid"></canvas>
-                </div>
-    
-                <!-- Weight-for-Height -->
-                <div class="chart-wrapper" id="w4h-boy-toddler-temp">
-                    <label for="-w4h-boy-toddler">Weight-for-Height Chart (M, 0-5 yrs): </label>
-                    <canvas id="-w4h-boy-toddler"></canvas>
-                </div>
-    
-                <div class="chart-wrapper" id="w4h-girl-toddler-temp">
-                    <label for="-w4h-girl-toddler">Weight-for-Height Chart (F, 0-5 yrs): </label>
-                    <canvas id="-w4h-girl-toddler"></canvas>
-                </div>
+            <div class="chart-wrapper" id="chart-temp">
+                <label for="${kidName}-${anthroType}-chart">${kidName}'s ${anthroType}</label>
+                <canvas id="${kidName}-${anthroType}-chart"></canvas>
             </div>
         </div>
     
@@ -178,4 +100,3 @@
         <script src="js/calculator/init-calc.js" type="text/javascript"></script>
     </body>
 </html>
-<!--edit eme-->

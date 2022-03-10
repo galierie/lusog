@@ -1,0 +1,95 @@
+From this point on, put a compilation of all commits here with the duration of how long you coded 
+it (time log) and and what you did to the specific file (activity log). Also put a general activity
+description right below the time log. 
+
+Activity Log Actions
+    Past Tense Verb + HTML/CSS/JS Component or File
+    e.g. Deleted script.js, Modified addData(), etc.
+
+Components
+    HTML Tags: "class-name" or "id"
+    CSS Declaration Blocks: //Symbolized by Selector
+        #id
+        .class-name
+        tag-name
+    JavaScript
+        Functions: functionName() //No Parameter
+        Arrays: arr[]
+        Variables: var
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar. 07: //Date
+    9:25AM - 10:20AM //Time Log
+    Enabled renaming to make the app user-friendlier. //General Activity Description
+
+        //Activity Log
+        index.html
+            Deleted "kid-name-div"
+            Modified 
+                "kid-amount-div": put it directly in "calculators"
+                "kid-name": made an input tag in it
+        styles.css
+            Deleted 
+                #kid-amount-div 
+                #kid-name-div
+                #kid-amount
+                #kid-name
+        init-calc.js
+            Deleted 
+                getKidAmount()
+                getKidName()
+                window.onload
+            Modified
+                "add-kids".onclick: 
+                    does not call getKidAmount() anymore
+                    made it call buildCalc()
+                buildCalc(): 
+                    no more parameters
+                    made it check if the input tag in "kid-name" has a value (kidName)
+                    made it modify HTML IDs accordingly 
+
+    10:34AM - 11:22AM, 12:10PM - 12:19PM 
+    Initialized recurring HTML element structures ("status" and "chart-wrapper") through JavaScript
+
+        index.html 
+            Modified "status" and "chart-wrapper": deleted specific child structures and replaced it with a general template
+        init-calc.js
+            Made buildNutriCharts()
+            Modified
+                buildNutriStatus(): transferred a subsection of the code to buildNutriCharts()
+                buildCalc(): to include buildNutriCharts() when buildNutriStatus() is called
+
+    4:48PM - 4:59PM, 5:32PM - 7:56PM, 9:51PM - 10:18PM
+    Extensive Changes. 
+        Done with W4A, H4A, and BMI4A.
+        Fixed renaming and input changes for biological sex and age.
+
+        index.html
+            Added an input tag for the date
+            Modified all input tag IDs 
+            Added a dropdown to the "Biological Sex" input tag
+        init-calc.js
+            in buildCalc()
+                Fixed 
+                    the renaming algorithm
+                    the algorithm for when "Biological Sex" and "Age" (change in age group) input changes 
+                Added an if statement that checks whether or not a z-score calculator has an inputted name
+            Changed the tag IDs for "status" and "chart-wrapper"
+            Optimized init-calc.js by using array functions on gSheets[] and atIndic[] to look for anthropometric indicator data
+        make-chart.js
+            Added searchChart()
+            Modified baseChart() to include
+                the new IDs for the "status" and "chart-wrapper" tags
+                array destructuring instead of making an array
+            Modified inputChart() to include all "Biological Sex" and "Age" related chart object attributes (labels and title) when updating the chart
+        base-data.js
+            Added 
+                a template for the "Weight-for-Height" in gSheets[]
+                catch function to loadData()
+                searchData()
+                atIndic[]
+        calc-input.js
+            Modified newData() 
+                to reflect changes in "status" and "chart-wrapper" tag IDs
+                to use array destructuring instead of making an array
