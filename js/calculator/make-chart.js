@@ -131,3 +131,11 @@ function inputChart(kidName, anthroID, anthroDataset){
     chart.update();
 
     return;
+}
+
+/*
+Sources:
+    https://www.createwithdata.com/chartjs-and-csv/
+    https://www.w3schools.com/ai/ai_chartjs.asp
+    https://www.chartjs.org/
+*/
