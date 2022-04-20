@@ -2,12 +2,18 @@
     Handles the non-Chart.js-related z-score calculator input processes.
 */
 
+//Actually calculates z-scores
+function zCalc(){
+    //grrrr
+}
+
 //Interprets nutritional status per chart
 function interpretW4A(anthroID, w, a){
     let zsData = w4aData.find(e => e[0] === anthroID),
-        bmx = (0 <= a && a <= 60) ? a : a - 60;
+        bmx = a;
 
-    let dataset = zsData[1][1].map(e => { return e.data[bmx]; });
+    let i = zsData[1][0].findIndex(e => +`${e}` === bmx);
+    let dataset = zsData[1][1].map(e => { return e.data[i]; });
 
     if(w < dataset[0]){ return "Severe Underweight"; } // z < -3
     else if(dataset[0] <= w && w < dataset[1]){ return "Moderate Underweight"; } // -3 <= z < -2
@@ -17,9 +23,10 @@ function interpretW4A(anthroID, w, a){
 
 function interpretH4A(anthroID, h, a){
     let zsData = h4aData.find(e => e[0] === anthroID),
-        bmx = (0 <= a && a <= 60) ? a : a - 60;
+        bmx = a;
 
-    let dataset = zsData[1][1].map(e => { return e.data[bmx]; });
+    let i = zsData[1][0].findIndex(e => +`${e}` === bmx);
+    let dataset = zsData[1][1].map(e => { return e.data[i]; });
 
     if(h < dataset[0]){ return "Severe Stunting"; } // z < -3
     else if(dataset[0] <= h && h< dataset[1]){ return "Moderate Stunting"; } // -3 <= z < -2
@@ -29,9 +36,10 @@ function interpretH4A(anthroID, h, a){
 
 function interpretBMI4A(anthroID, bmi, a){
     let zsData = bmi4aData.find(e => e[0] === anthroID),
-        bmx = (0 <= a && a <= 60) ? a : a - 60;
+        bmx = a;
 
-    let dataset = zsData[1][1].map(e => { return e.data[bmx]; });
+    let i = zsData[1][0].findIndex(e => +`${e}` === bmx);
+    let dataset = zsData[1][1].map(e => { return e.data[i]; });
 
     if(bmi < dataset[0]){ return "Severe Wasting/Severe Acute Malnutrition (SAM)"; } // z < -3
     else if(dataset[0] <= bmi && bmi < dataset[1]){ return "Moderate Wasting/Moderate Acute Malnutrition (MAM)"; } // -3 <= z <-2
@@ -42,10 +50,17 @@ function interpretBMI4A(anthroID, bmi, a){
 }
 
 function interpretW4H(anthroID, w, h){
-    let zsData = w4aData.find(e => e[0] === anthroID),
-        bmx = h;
-        
-    let dataset = zsData[1][1].map(e => { return e.data[bmx]; });
+    let zsData = w4hData.find(e => e[0] === anthroID),
+        bmx = Math.round(h),
+        d = h - bmx;
+    
+    if(Math.abs(d) > 0.25){
+        if(d < 0){ bmx -= 0.5; } 
+        else if(d > 0){ bmx += 0.5; }
+    }
+
+    let i = zsData[1][0].findIndex(e => +`${e}` === bmx);
+    let dataset = zsData[1][1].map(e => { return e.data[i]; });
 
     if(w < dataset[0]){ return "Severe Wasting/Severe Acute Malnutrition (SAM)"; } // z < -3
     else if(dataset[0] <= w && w < dataset[1]){ return "Moderate Wasting/Moderate Acute Malnutrition (MAM)"; } // -3 <= z <-2
@@ -55,14 +70,13 @@ function interpretW4H(anthroID, w, h){
     else if(dataset[6] < w){ return "Obesity"; } // 3 < z
 }
 
-//To be updated
-//Processes the input and saves it to a csv file dedicated to a child
+//Processes the input
 function newData(kidName, anthroType, blocking, bmy, bmx){
-    //Get chart ID
-    let anthroID = `${anthroType}-${blocking}`;
+    let anthroID = `${anthroType}-${blocking}`; //Get chart ID
+    console.log(anthroID);
     
     //Interpret z-score
-    let nutriStatus = "grr";
+    let nutriStatus = "";
     switch(anthroType){
         case "w4a":
             nutriStatus = interpretW4A(anthroID, bmy, bmx);
@@ -80,17 +94,29 @@ function newData(kidName, anthroType, blocking, bmy, bmx){
     document.getElementById(`${kidName}-${anthroType}-status`).innerHTML = nutriStatus;
 
     //New z-score chart
-    let [ , ageGroup] = blocking.split("-");
-    let limit = (ageGroup === "toddler") ? [0, 61] : [61, 229];
+    if(anthroType === "w4h"){
+        let newBMX = Math.round(bmx),
+            d = bmx - newBMX;
+    
+        if(Math.abs(d) > 0.25){
+            if(d < 0){ newBMX -= 0.5; } 
+            else if(d > 0){ newBMX += 0.5; }
+        }
 
-    let anthroData = [];
-    for(let i = limit[0]; i < limit[1]; i++){ (bmx === i) ? anthroData.push(bmy) : anthroData.push(null); }
+        [bmx, newBMX] = [newBMX, bmx];
+    }
+
+    let zsData = searchData(anthroType).find(e => e[0] === anthroID);
+
+    let xIndex = zsData[1][0].findIndex(e => +`${e}` === bmx),
+        anthroData = [];
+    for(let i = 0; i < zsData[1][0].length; i++){ (xIndex === i) ? anthroData.push(bmy) : anthroData.push(null); }
 
     let anthroDataset = new Dataset("No Z-Score", anthroData); 
 
     inputChart(kidName, anthroID, anthroDataset);
 
-    //Write to csv file
+    //Actually calculate the z-score
 
     return;
 }
