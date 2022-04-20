@@ -27,7 +27,7 @@ function configData(csvData){
 }
 
 //List of anthropometric indicators
-let atIndic = ["w4a", "h4a", "bmi4a"]; //, "w4h"
+let atIndic = ["w4a", "h4a", "bmi4a", "w4h"];
 
 //List of basis data, grouped by anthropometric indicator
 let w4aData = [],
@@ -63,21 +63,9 @@ function loadData(obj){
     .then(csvData => { 
         let [anthroType, , ] = obj.canvasID.split("-"),
             zsData = [obj.canvasID, configData(csvData)];
-        
-        switch(anthroType){
-            case "w4a":
-                w4aData.push(zsData);
-                break;
-            case "h4a":
-                h4aData.push(zsData);
-                break;
-            case "bmi4a":
-                bmi4aData.push(zsData);
-                break;
-            case "w4h":
-                w4hData.push(zsData);
-                break;
-        }
+            
+        let chartData = searchData(anthroType);
+        chartData.push(zsData);
     })
     .catch(() => {
         //alert("Base data cannot be retrieved. Please try again. Thank you.");
@@ -98,59 +86,79 @@ const gSheets = [
     */
 
     //Weight-for-age
-    {
-        canvasID: "w4a-boy-toddler",
-        title: "Weight-for-Age (M, 0-5 yrs)",
-        gsID: 0,
+    { 
+        canvasID: "w4a-girl-infant",
+        title: "Weight-for-Age (F, 0-2 yrs)",
+        gsID: 1545525530,
     },
     { 
         canvasID: "w4a-girl-toddler",
-        title: "Weight-for-Age (F, 0-5 yrs)",
-        gsID: 1545525530,
-    },
-    {
-        canvasID: "w4a-boy-kid",
-        title: "Weight-for-Age (M, 5-10 yrs)",
-        gsID: 1189429997,
+        title: "Weight-for-Age (F, 2-5 yrs)",
+        gsID: 1615685772,
     },
     {
         canvasID: "w4a-girl-kid",
         title: "Weight-for-Age (F, 5-10 yrs)",
         gsID: 362934378,
     },
+    {
+        canvasID: "w4a-boy-infant",
+        title: "Weight-for-Age (M, 0-2 yrs)",
+        gsID: 0,
+    },
+    {
+        canvasID: "w4a-boy-toddler",
+        title: "Weight-for-Age (M, 2-5 yrs)",
+        gsID: 1714450265,
+    },
+    {
+        canvasID: "w4a-boy-kid",
+        title: "Weight-for-Age (M, 5-10 yrs)",
+        gsID: 1189429997,
+    },
     
     //Height-for-age
     {
-        canvasID: "h4a-boy-toddler",
-        title: "Height-for-Age (M, 0-5 yrs)",
-        gsID: 2024421291,
-    },
-    {
-        canvasID: "h4a-boy-kid",
-        title: "Height-for-Age (M, 5-19 yrs)",
-        gsID: 998321320,
+        canvasID: "h4a-girl-infant",
+        title: "Height-for-Age (F, 0-2 yrs)",
+        gsID: 2081201493,
     },
     {
         canvasID: "h4a-girl-toddler",
-        title: "Height-for-Age (F, 0-5 yrs)",
-        gsID: 2081201493,
+        title: "Height-for-Age (F, 2-5 yrs)",
+        gsID: 358932355,
     },
     {
         canvasID: "h4a-girl-kid",
         title: "Height-for-Age (F, 5-19 yrs)",
         gsID: 1844474538,
     },
+    {
+        canvasID: "h4a-boy-infant",
+        title: "Height-for-Age (M, 0-2 yrs)",
+        gsID: 2024421291,
+    },
+    {
+        canvasID: "h4a-boy-toddler",
+        title: "Height-for-Age (M, 2-5 yrs)",
+        gsID: 1212513320,
+    },
+    {
+        canvasID: "h4a-boy-kid",
+        title: "Height-for-Age (M, 5-19 yrs)",
+        gsID: 998321320,
+    },
 
     //BMI-for-age
     {
-        canvasID: "bmi4a-girl-toddler",
-        title: "BMI-for-Age (F, 0-5 yrs)",
+        canvasID: "bmi4a-girl-infant",
+        title: "BMI-for-Age (F, 0-2 yrs)",
         gsID: 1204570084,
     },
     {
-        canvasID: "bmi4a-boy-toddler",
-        title: "BMI-for-Age (M, 0-5 yrs)",
-        gsID: 1334077550,
+        canvasID: "bmi4a-girl-toddler",
+        title: "BMI-for-Age (F, 2-5 yrs)",
+        gsID: 1658361091,
     },
     {
         canvasID: "bmi4a-girl-kid",
@@ -158,24 +166,42 @@ const gSheets = [
         gsID: 307989340,
     },
     {
+        canvasID: "bmi4a-boy-infant",
+        title: "BMI-for-Age (M, 0-2 yrs)",
+        gsID: 1334077550,
+    },
+    {
+        canvasID: "bmi4a-boy-toddler",
+        title: "BMI-for-Age (M, 2-5 yrs)",
+        gsID: 1308246530,
+    },
+    {
         canvasID: "bmi4a-boy-kid",
         title: "BMI-for-Age (M, 5-19 yrs)",
         gsID: 1408176015,
-    }
+    },
     
     //Weight-for-height
-    /*
     {
-        canvasID: "w4h-boy-toddler",
-        title: "Weight-for-Height (M, 0-5 yrs)",
-        gsID: ,
+        canvasID: "w4h-girl-infant",
+        title: "Weight-for-Height (F, 0-2 yrs)",
+        gsID: 59739130,
     },
     {
         canvasID: "w4h-girl-toddler",
-        title: "Weight-for-Height (F, 0-5 yrs)",
-        gsID: ,
+        title: "Weight-for-Height (F, 2-5 yrs)",
+        gsID: 1272831840,
     },
-    */
+    {
+        canvasID: "w4h-boy-infant",
+        title: "Weight-for-Height (M, 0-2 yrs)",
+        gsID: 1500705257,
+    },
+    {
+        canvasID: "w4h-boy-toddler",
+        title: "Weight-for-Height (M, 2-5 yrs)",
+        gsID: 901539759,
+    },
 ];
 gSheets.forEach(sheet => loadData(sheet));
 
