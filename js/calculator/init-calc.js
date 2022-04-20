@@ -139,7 +139,8 @@ function buildCalc(){
         if(s === "M" || s === "m"){ bioSex = "boy"; }
         else if(s === "F" || s === "f"){ bioSex = "girl"; }
 
-        if(0 <= a && a <= 60){ ageGroup = "toddler"; }
+        if(0 <= a && a <= 24){ ageGroup = "infant"; }
+        else if(24 < a && a <= 60){ ageGroup = "toddler"; }
         else if(60 < a && a <= 228){ ageGroup = "kid"; }
 
         let blocking = bioSex + "-" + ageGroup;
@@ -163,7 +164,7 @@ function buildCalc(){
         if(0 <= a && a <= 120) newData(kidName, "w4a", blocking, w, a);
         newData(kidName, "h4a", blocking, h, a);
         newData(kidName, "bmi4a", blocking, bmi, a);
-        //if(0 <= a && a <= 60) newData(kidName, "w4h", blocking, w, h);
+        if(0 <= a && a <= 60) newData(kidName, "w4h", blocking, w, h);
     }
 
     document.getElementById("calculators").insertBefore(kidCalc, document.getElementById("kid-amount-div"));
