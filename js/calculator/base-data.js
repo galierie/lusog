@@ -8,7 +8,7 @@ function configData(csvData){
         neg_3SD = csvData.map(cd => { return cd.neg_3SD; }),
         neg_2SD = csvData.map(cd => { return cd.neg_2SD; }),
         neg_1SD = csvData.map(cd => { return cd.neg_1SD; }),
-        ave_mean = csvData.map(cd => { return cd.ave_mean; }),
+        zeroSD = csvData.map(cd => { return cd.zeroSD; }),
         pos_1SD = csvData.map(cd => { return cd.pos_1SD; }),
         pos_2SD = csvData.map(cd => { return cd.pos_2SD; }),
         pos_3SD = csvData.map(cd => { return cd.pos_3SD; });
@@ -17,7 +17,7 @@ function configData(csvData){
         new Dataset(-3, neg_3SD),
         new Dataset(-2, neg_2SD),
         new Dataset(-1, neg_1SD),
-        new Dataset(0, ave_mean),
+        new Dataset(0, zeroSD),
         new Dataset(1, pos_1SD),
         new Dataset(2, pos_2SD),
         new Dataset(3, pos_3SD),
