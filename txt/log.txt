@@ -93,3 +93,22 @@ Mar. 07: //Date
             Modified newData() 
                 to reflect changes in "status" and "chart-wrapper" tag IDs
                 to use array destructuring instead of making an array
+    
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr. 20
+    6:43PM - 7:11PM, 8:26PM - 10:38PM
+    Fixed the weight-for-height interpretation function
+
+        calc-input.js
+            Modified newData() 
+                to remove comments about saving data to .csv file
+                so that processing the new dataset for the input can actually take in any number  
+            Modified all interpretation functions so that index actually has to be determined by finding the index of the x-value (findIndex()), not just equating the x-value to the index
+        base-data.js
+            Modified atIndic[] to include the weight-for-height code
+            Modified gSheets[] 
+                to include the Google Sheet tabs for weight-for-height
+                to include another age group ("infant")
+        init-calc.js
+            Modified buildCalc() to include weight-for-height in processing input
