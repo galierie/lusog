@@ -5,6 +5,11 @@
 //Processes the base z-score data to something easily configurable
 function configData(csvData){
     let x_axis = csvData.map(cd => { return cd.x_axis; }),
+
+        bc = csvData.map(cd => { return cd.bc; }),
+        median = csvData.map(cd => { return cd.median; }),
+        coeff_var = csvData.map(cd => { return cd.coeff_var; }),
+
         neg_3SD = csvData.map(cd => { return cd.neg_3SD; }),
         neg_2SD = csvData.map(cd => { return cd.neg_2SD; }),
         neg_1SD = csvData.map(cd => { return cd.neg_1SD; }),
@@ -13,17 +18,19 @@ function configData(csvData){
         pos_2SD = csvData.map(cd => { return cd.pos_2SD; }),
         pos_3SD = csvData.map(cd => { return cd.pos_3SD; });
 
-    let z_scores = [
-        new Dataset(-3, neg_3SD),
-        new Dataset(-2, neg_2SD),
-        new Dataset(-1, neg_1SD),
-        new Dataset(0, zeroSD),
-        new Dataset(1, pos_1SD),
-        new Dataset(2, pos_2SD),
-        new Dataset(3, pos_3SD),
-    ];
+    let 
+        z_scores = [
+            new Dataset(-3, neg_3SD),
+            new Dataset(-2, neg_2SD),
+            new Dataset(-1, neg_1SD),
+            new Dataset(0, zeroSD),
+            new Dataset(1, pos_1SD),
+            new Dataset(2, pos_2SD),
+            new Dataset(3, pos_3SD),
+        ],
+        lms = [bc, median, coeff_var];
 
-    return [x_axis, z_scores];
+    return [x_axis, z_scores, lms];
 }
 
 //List of anthropometric indicators

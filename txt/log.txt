@@ -112,3 +112,18 @@ Apr. 20
                 to include another age group ("infant")
         init-calc.js
             Modified buildCalc() to include weight-for-height in processing input
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr. 21
+    2:13PM - 3:03PM
+    Actually made a z-score calculator
+
+    base-data.js
+        Modified configData()
+            to include three more parameters: bc, median, and coeff_var
+            to change the variable name for the 0SD z-score values
+    calc-input.js
+        Made zCalc() to compute z-scores using the LMS method
+        Morphed all of the interpretation functions into one function (interpretNutriStatus())
+        Modified newData() to simplify its code
