@@ -1,102 +1,122 @@
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <title>Anthropometric Calculator</title>
+        <title>Lusog</title>
 
+        <link href="css/general.css" type="text/css" rel="stylesheet" />
         <link href="css/styles.css" type="text/css" rel="stylesheet" />
 
         <script src="https://d3js.org/d3.v7.min.js" type="text/javascript"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="calculators">
             <div id="kid-amount-div">
-                <label for="kid-amount">No. of Kids</label>
-                <input type="text" id="kid-amount">
+                <label for="kid-amount">No. of Kids: </label>
+                <input type="text" id="kid-amount" />
                 <button id="add-kids">+</button>
             </div>
         </div>
 
         <div id="templates" style="display: none;">
-            <div class="calc" id="calc-temp">
+            <div id="calc-temp">
                 <div class="form">
                     <div class="kid-name">
-                        <label for="-input">Name: </label>
-                        <input type="text" id="-input" list="${kidName}-other-kids">
-
-                        <!--
-                            <datalist id="${kidName}-other-kids">
-                                <option value=""></option>
-                            </datalist>
-                        -->
+                        <label for="kidName-input">Name: </label>
+                        <input type="text" id="kidName-input" />
                     </div>
 
                     <div>
-                        <label for="-date">Date Today: </label>
-                        <input type="date" id="-date">
+                        <label for="kidName-age">Age (in months): </label>
+                        <input type="text" id="kidName-age" />
                     </div>
-                </div>
 
-                <div class="form">
-                    <div>
-                        <label for="-age">Age (in months): </label>
-                        <input type="text" id="-age">
+                    <div class="sex">
+                        <div>Sex (biological; M/F): </div>
+                        <div>
+                            <div>
+                                <input type="radio" id="kidName-male" name="kidName-sex" value="M" />
+                                <label for="kidName-male"> M</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="kidName-female" name="kidName-sex" value="F" />
+                                <label for="kidName-female"> F</label>
+                            </div>
+                        </div>
                     </div>
-            
-                    <div>
-                        <label for="-sex">Sex (biological; M/F): </label>
-                        <input type="text" id="-sex" list="bio-sex">
 
-                        <datalist id="bio-sex">
-                            <option value="M">Male</option>
-                            <option value="F">Female</option>
-                        </datalist>
-                    </div>
-                </div>
-                
-                <div class="form">
                     <div>
-                        <label for="-height">Height (in centimeters): </label>
-                        <input type="text" id="-height">
+                        <label for="kidName-date">Date Today: </label>
+                        <input type="date" id="kidName-date" />
                     </div>
-            
+
                     <div>
-                        <label for="-weight">Weight (in kilograms): </label>
-                        <input type="text" id="-weight">
+                        <label for="kidName-height">Height (in centimeters): </label>
+                        <input type="text" id="kidName-height" />
                     </div>
-                    
+
+                    <div>
+                        <label for="kidName-weight">Weight (in kg): </label>
+                        <input type="text" id="kidName-weight" />
+                    </div>
+
                     <button class="submit">Submit</button>
                 </div>
 
-                <div class="status bmi-div">
-                    <label for="${kidName}-bmi">BMI: </label>
-                    <p id="${kidName}-bmi">bmi</p>
+                <div class="summary-report" style="display: none;">
+                    <div class="status bmi-div">
+                        <label for="kidName-bmi">BMI: </label>
+                        <p id="kidName-bmi"></p>
+                    </div>
+
+                    <div class="summary-div"></div>
+
+                    <div class="actual-report"></div>
                 </div>
-            
-                <div class="statuses"></div>
-
-                <div class="charts"></div>
             </div>
 
-            <div class="status" id="status-temp">
-                <label for="${kidName}-${anthroType}-status"></label>
-                <p id="${kidName}-${anthroType}-status"></p>
+            <div class="summary" id="summary-temp">
+                <p class="summary-title">anthroType</p>
+                
+                <div>
+                    <label for="kidName-anthroType-zs-summary">Z-Score: </label>
+                    <p class="zs" id="kidName-anthroType-zs-summary"></p>
+                </div>
+
+                <div>
+                    <label for="kidName-anthroType-ns-summary">Nutritional Status: </label>
+                    <p class="ns" id="kidName-anthroType-ns-summary"></p>
+                </div>
+                
+                <button>See Results</button>
             </div>
 
-            <div class="chart-wrapper" id="chart-temp">
-                <label for="${kidName}-${anthroType}-chart">${kidName}'s ${anthroType}</label>
-                <canvas id="${kidName}-${anthroType}-chart"></canvas>
+            <div class="report" id="report-temp">
+                <div class="chart">
+                    <label for="kidName-anthroType-charts"></label>
+                    <canvas class="charts" id="kidName-anthroType-chats"></canvas>
+                </div>
+                <div class="status">
+                    <div class="z-score">
+                        <label for="kidName-anthroType-zs">Z-Score: </label>
+                        <p class="zs" id="kidName-anthroType-zs"></p>
+                    </div>
+                    <div class="nutri-status">
+                        <label for="kidName-anthroType-ns">Nutritional Status: </label>
+                        <p class="ns" id="kidName-anthroType-ns"></p>
+                    </div>
+                </div>
             </div>
         </div>
-    
 
         <!-- JavaScripts -->
         <script src="js/calculator/base-data.js" type="text/javascript"></script>
-        <script src="js/calculator/make-chart.js" type="text/javascript"></script>
         <script src="js/calculator/calc-input.js" type="text/javascript"></script>
         <script src="js/calculator/init-calc.js" type="text/javascript"></script>
+        <script src="js/calculator/make-chart.js" type="text/javascript"></script>
     </body>
 </html>
