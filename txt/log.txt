@@ -127,3 +127,53 @@ Apr. 21
         Made zCalc() to compute z-scores using the LMS method
         Morphed all of the interpretation functions into one function (interpretNutriStatus())
         Modified newData() to simplify its code
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr. 22 - 23
+    Whole day
+    Had to update the UI for index.html and calculator.html
+
+    Entire website
+        Explored around Bootstrap Studio
+        Changed the color palette
+        Styled the navigation bar, header, and footer with the new colors
+            Took a lot of time in styling the buttons
+
+    index.html
+        Deleted a section of the landing page
+        Filled up the landing page a bit
+
+    calculator.html
+        Redid the z-score calculator UI
+
+    init-calc.js
+        Combined buildNutriStatus() and buildNutriCharts() into buildReport()
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr. 24 - 25
+    1:00PM - Whole day
+    Had to update the UI for calculator.html
+
+    Entire website
+        Changed the fonts
+        Styled the heading, p, a, label, and input HTML tags with the new fonts
+
+    calculator.html
+        Researched about form input UIs
+        Learned about a user-made button to actually make the result report modal open
+        Styled the results summary to open beside the z-score calculator
+            Updated init-calc.js to go along with it
+            Took up most of my time becuase everytime either calculator.html or init-calc.js gets updated, I have to add a new HTML element structure to make the thing work
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr. 28
+    9:17AM - 10:18AM
+    Minor updates to calculator.html UI; finally pushed to GitHub
+
+    calculator.html
+        Tried to change the UI of the results summary; ended up not changing it
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

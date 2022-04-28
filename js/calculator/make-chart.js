@@ -9,31 +9,26 @@ class Dataset {
         this.data = d;
         this.fill = false;
 
+        let c = "#000000";
         switch(z){
             case -3:
             case 3:
-                this.backgroundColor = "#BB342F";
-                this.borderColor = "#BB342F";
+                c = "#BB342F";
                 break;
             case -2:
             case 2:
-                this.backgroundColor = "#DDA448";
-                this.borderColor = "#DDA448";
+                c = "#DDA448";
                 break;
             case -1:
             case 1:
-                this.backgroundColor = "#8CBCB9";
-                this.borderColor = "#8CBCB9";
+                c = "#8CBCB9";
                 break;
             case 0:
-                this.backgroundColor = "#1B512D";
-                this.borderColor = "#1B512D";
-                break;
-            default: 
-                this.backgroundColor = "#000000";
-                this.borderColor = "#000000";
+                c = "#1B512D";
                 break;
         }
+        this.backgroundColor = c;
+        this.borderColor = c;
     }
 }
 
@@ -65,10 +60,10 @@ function searchChart(anthroType){
 }
 
 //Makes the base z-score charts
-function baseChart(kidName, obj, cd){
-    let [anthroType, , ] = obj.canvasID.split("-");
+function baseChart(kidName, sheet, cd){
+    let [at, , ] = sheet.canvasID.split("-");
     
-    let chartID = `${kidName}-${anthroType}-chart`;
+    let chartID = `${kidName}-${at}-charts`;
     let canvasChart = new Chart(chartID, {
         type: "line",
         data: {
@@ -83,7 +78,7 @@ function baseChart(kidName, obj, cd){
                 },
                 title: {
                     display: true,
-                    text: obj.title,
+                    text: sheet.title,
                 },
             },
         },
@@ -94,31 +89,19 @@ function baseChart(kidName, obj, cd){
         chartVis: canvasChart,
     };
 
-    switch(anthroType){
-        case "w4a":
-            w4aCharts.push(chart);
-            break;
-        case "h4a":
-            h4aCharts.push(chart);
-            break;
-        case "bmi4a":
-            bmi4aCharts.push(chart);
-            break;
-        case "w4h":
-            w4hCharts.push(chart);
-            break;
-    }
+    let chartList = searchChart(at);
+    chartList.push(chart);
 
     return;
 }
 
 //Gets the base z-score chart and adds the user inputs
 function inputChart(kidName, anthroID, anthroDataset){
-    let [anthroType, bioSex, ageGroup] = anthroID.split("-");
+    let [at, bioSex, ageGroup] = anthroID.split("-");
 
-    let chartData = searchData(anthroType), 
-        chartList = searchChart(anthroType),
-        chartID = `${kidName}-${anthroType}-chart`;
+    let chartData = searchData(at), 
+        chartList = searchChart(at),
+        chartID = `${kidName}-${at}-charts`;
 
     let nDatasets = chartData.find(cd => cd[0] === anthroID)[1][1].slice();
     nDatasets.push(anthroDataset);
