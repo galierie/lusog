@@ -9,8 +9,8 @@ function zCalc(zsData, bmy, xIndex){
 }
 
 //Interprets nutritional status per chart
-function interpretNutriStatus(anthroType, z){
-    switch(anthroType){
+function interpretNutriStatus(at, z){
+    switch(at){
         case "w4a":
             if(z < -3){ return "Severe Underweight"; }
             else if(-3 <= z && z < -2){ return "Moderate Underweight"; }
@@ -46,13 +46,13 @@ function interpretNutriStatus(anthroType, z){
 }
 
 //Processes the input
-function newData(kidName, anthroType, blocking, bmy, bmx){
-    let anthroID = `${anthroType}-${blocking}`; //Get chart ID
+function newData(kidName, at, blocking, bmy, bmx){
+    let anthroID = `${at}-${blocking}`; //Get chart ID
     
-    let zsData = searchData(anthroType).find(e => e[0] === anthroID); //Get the right group of datasets
+    let zsData = searchData(at).find(e => e[0] === anthroID); //Get the right group of datasets
 
     //If statement for weight-for-height x-value
-    if(anthroType === "w4h"){
+    if(at === "w4h"){
         let newBMX = Math.round(bmx);
         let d = bmx - newBMX;
     
@@ -66,9 +66,12 @@ function newData(kidName, anthroType, blocking, bmy, bmx){
     let xIndex = zsData[1][0].findIndex(e => +`${e}` === bmx); //Get the right age/height/x-value
 
     let z_score = zCalc(zsData, bmy, xIndex); //Calculate the z-score
-    
-    
-    document.getElementById(`${kidName}-${anthroType}-status`).innerHTML = `${z_score}; ${interpretNutriStatus(anthroType, z_score)}`; //Interpret z-score
+    let nutri_status = interpretNutriStatus(at, z_score); //Interpret z-score
+
+    document.getElementById(`${kidName}-${at}-zs-summary`).innerHTML = z_score;
+    document.getElementById(`${kidName}-${at}-ns-summary`).innerHTML = nutri_status;
+    document.getElementById(`${kidName}-${at}-zs`).innerHTML = z_score;
+    document.getElementById(`${kidName}-${at}-ns`).innerHTML = nutri_status;
 
     //New z-score chart
     let anthroData = [];
