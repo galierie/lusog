@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html style="--bs-primary: #FFBA08;--bs-primary-rgb: 255,186,8;--bs-secondary: #3F88C5;--bs-secondary-rgb: 63,136,197;--bs-info: #32373B;--bs-info-rgb: 50,55,59;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>mock-up-trial-4</title>
+    <meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:400,400i,700,700i&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="assets/fonts/simple-line-icons.min.css">
+    <link rel="stylesheet" href="assets/css/Article-Dual-Column.css">
+    <link rel="stylesheet" href="assets/css/Footer-Clean.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
+    <link rel="stylesheet" href="assets/css/Projects-Clean.css">
+    <link rel="stylesheet" href="assets/css/Responsive-Form-1.css">
+    <link rel="stylesheet" href="assets/css/Responsive-Form.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg navigation-clean">
+        <div class="container"><a class="navbar-brand" href="#" style="font-family: Montserrat, sans-serif;--bs-body-font-weight: bold;font-weight: bold;">lusog</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#contacts">Makipag-ugnayan sa Amin</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculator.html">Magkalkula ng Kalagayan ng Nutrisyon</a></li>
+                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown">Mga Impormasyon Tungkol sa</a>
+                        <div class="dropdown-menu"><a class="dropdown-item" href="nutritional-info-page.html">Kalagayan ng Nutrisyon</a><a class="dropdown-item" href="oedema-info-page.html">Oedema</a><a class="dropdown-item" href="food-portions-info-page.html">Pagbahagi ng Pagkain</a></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <section id="calculators">
+            <div class="container" id="kid-amount-div">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Ilang Bata ang Kakalkulahin ang Kalagayan ng Nutrisyon?</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <section><input type="text" id="kid-amount"><button class="btn btn-primary" id="add-kids" type="button">Magkalkula</button></section>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="templates" style="display: none;">
+            <div id="calc-temp" class="calc">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 input-calc">
+                            <div class="row form">
+                                <div class="col">
+                                    <div class="kid-name"><label class="form-label" for="kidName-input">Pangalan:&nbsp;</label><input type="text" id="kidName-input"></div>
+                                </div>
+                            </div>
+                            <div class="row form">
+                                <div class="col">
+                                    <div class="age"><label class="form-label" for="kidName-age">Edad (buwan):&nbsp;</label><input type="text" id="kidName-age"></div>
+                                </div>
+                                <div class="col">
+                                    <div class="sex">
+                                        <p style="margin: 0;">Kasarian (M/F):&nbsp;<br></p>
+                                        <div>
+                                            <div class="form-check"><input class="form-check-input" type="radio" id="kidName-male" name="kidName-sex" value="M"><label class="form-check-label" for="kidName-male">&nbsp;M</label></div>
+                                            <div class="form-check"><input class="form-check-input" type="radio" id="kidName-female" name="kidName-sex" value="F"><label class="form-check-label" for="kidName-female">&nbsp;F</label></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form">
+                                <div class="col">
+                                    <div class="date"><label class="form-label" for="kidName-date">Petsa kung kailan kinuhanan ng tangkad at timbang:&nbsp;</label><input id="kidName-date" type="date"></div>
+                                    <div class="height"><label class="form-label" for="kidName-height">Tangkad (sentimetro):&nbsp;</label><input type="text" id="kidName-height"></div>
+                                    <div class="weight"><label class="form-label" for="kidName-weight">Timbang (kilo):&nbsp;</label><input type="text" id="kidName-weight"></div>
+                                    <div style="display: flex;justify-content: flex-end;"><button class="btn btn-primary submit" type="button" style="width: 10rem;">Kalkulahin</button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 output-calc summary-report" style="display: none;">
+                            <h4>Mga Resulta</h4>
+                            <div class="status bmi-div"><label class="form-label" for="kidName-bmi">BMI:&nbsp;</label>
+                                <p id="kidName-bmi"></p>
+                            </div>
+                            <div class="summary-div"></div>
+                            <div class="actual-report"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="summary-temp" class="summary">
+                <h6 class="summary-title" style="margin: 0;">anthroType</h6>
+                <div><label class="form-label" for="kidName-anthroType-zs-summary">Z-Score:&nbsp;</label>
+                    <p id="kidName-anthroType-zs-summary" class="zs"></p>
+                </div>
+                <div><label class="form-label" for="kidName-anthroType-ns-summary">Nutritional Status:&nbsp;</label>
+                    <p id="kidName-anthroType-ns-summary" class="ns"></p>
+                </div>
+                <div style="justify-content: flex-end;"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#report-temp">Tignan ang Resulta</button></div>
+            </div>
+            <div class="modal fade report" role="dialog" tabindex="-1" id="report-temp" style="display: none;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Mga Resulta</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="kidName-anthroType-report">
+                                <div class="status">
+                                    <div class="nutri-status"><label class="form-label" for="kidName-anthroType-ns">Nutritional Status:&nbsp;</label>
+                                        <p id="kidName-anthroType-ns" class="ns"></p>
+                                    </div>
+                                    <div class="z-score"><label class="form-label" for="kidName-anthroType-zs">Z-Score:&nbsp;</label>
+                                        <p id="kidName-anthroType-zs" class="zs"></p>
+                                    </div>
+                                </div>
+                                <div class="chart"><label class="form-label" for="kidName-anthroType-charts">kidName's anthroType Z-Score Chart:&nbsp;</label><canvas class="charts" id="kidName-anthroType-charts"></canvas></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-primary" type="button">Save</button></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-light footer">
+        <div class="container">
+            <div class="row">
+                <div class="col offset-0" id="contacts">
+                    <h3 style="text-align: center;">Contact Us</h3>
+                    <section id="contact-icon"><a href="#"><i class="material-icons">email</i></a><a href="#"><i class="material-icons">contact_phone</i></a><a href="#"><i class="fab fa-viber"></i></a></section>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 text-center text-lg-start my-auto h-100" style="width: 100%;">
+                    <p class="text-muted small mb-4 mb-lg-0" style="text-align: center;">© Lusog 2022. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="assets/js/calculator/base-data.js"></script>
+    <script src="assets/js/calculator/calc-input.js"></script>
+    <script src="assets/js/calculator/init-calc.js"></script>
+    <script src="assets/js/calculator/make-chart.js"></script>
+</body>
+
+</html>
