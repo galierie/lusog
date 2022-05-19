@@ -177,3 +177,18 @@ Apr. 28
         Tried to change the UI of the results summary; ended up not changing it
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 19
+    1:24PM - 2:20PM
+        Took local ZIPs of several git branches
+        Minor updates to index.html
+
+        index.html
+            Fixed navigation links
+            Put z-score calculator in index.html
+            Fixed a few p tags in index.html
+        
+        calculator.html
+            Deleted calculator.html
+            
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
