@@ -54,7 +54,7 @@ function buildReport(kidCalc, at, b){
             break;
     }
     rLabels[2].innerHTML = `${kidCalc.id}'s ${atLabel} Z-Score Chart: `;
-    summary.getElementsByClassName("summary-title")[0].innerHTML = `${atLabel}: `;
+    summary.getElementsByClassName("summary-title")[0].innerHTML = `${atLabel}`;
 
     kidCalc.getElementsByClassName("actual-report")[0].appendChild(report);
 
