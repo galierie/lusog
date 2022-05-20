@@ -1,7 +1,6 @@
 .navigation-clean {
   background: #fff;
-  padding-top: .75rem;
-  padding-bottom: .75rem;
+  padding: 0;
   color: #333;
   border-radius: 0;
   box-shadow: none;
@@ -9,7 +8,7 @@
 }
 
 @media (min-width:768px) {
-  .navigation-clean {
+  .navigation-clean > .nav-item {
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
@@ -21,11 +20,11 @@
 }
 
 .navigation-clean .navbar-brand:hover {
-  color: #222;
+  color: rgba(191, 183, 182, 0.25) !important;
 }
 
 .navigation-clean .navbar-toggler {
-  border: 1.5px solid var(--bs-primary);
+  /*border: 1.5px solid var(--bs-primary);*/
 }
 
 .navigation-clean .navbar-toggler:hover, .navigation-clean .navbar-toggler:focus {
