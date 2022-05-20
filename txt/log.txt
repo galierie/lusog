@@ -190,5 +190,13 @@ May 19
         
         calculator.html
             Deleted calculator.html
+    
+    4:12PM - 5:24PM
+        Minor updates to index.html
+
+        index.html
+            Minor updates to color palette
+            Deleted a section and added a new section
+            Fixed quotes and other text
             
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
