@@ -54,7 +54,7 @@ function buildReport(kidCalc, at, b){
             break;
     }
     rLabels[2].innerHTML = `${kidCalc.id}'s ${atLabel} Z-Score Chart: `;
-    summary.getElementsByClassName("summary-title")[0].innerHTML = `${atLabel}`;
+    summary.getElementsByClassName("summary-title")[0].innerHTML = `${atLabel}: `;
 
     kidCalc.getElementsByClassName("actual-report")[0].appendChild(report);
 
@@ -104,7 +104,8 @@ function buildCalc(){
 
     //Calls functions to process the input
     kidCalc.getElementsByClassName("submit")[0].onclick = () => {
-        //Check kidCalc ID
+        //Check kidCalc ID if
+        //null
         if(
             (
                 kidName === "" 
@@ -113,6 +114,11 @@ function buildCalc(){
             && kidCalc.id === "calc-temp"
         ){
             alert("Pakilagay po ang pangalan ng bata. Salamat!");
+            return;
+        }
+        //first character is not a letter
+        if(!(kidName[0].match(/[a-z]/gi))){
+            alert("Mangyaring baguhin lamang po ang unang karakter ng pangalan ng bata sa isang letra. Salamat!");
             return;
         }
 
@@ -165,7 +171,8 @@ function buildCalc(){
 
         if(0 <= a && a <= 24){ ageGroup = "infant"; }
         else if(24 < a && a <= 60){ ageGroup = "toddler"; }
-        else if(60 < a && a <= 228){ ageGroup = "kid"; }
+        else if(60 < a && a <= 120){ ageGroup = "kid"; }
+        else if(120 < a && a <= 228){ ageGroup = "teen"; }
 
         let blocking = `${bioSex}-${ageGroup}`;
 
