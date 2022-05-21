@@ -325,7 +325,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 2rem;
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+.btn-primary:hover, .btn-primary:active {
   background-color: var(--bs-secondary) !important;
   border-color: var(--bs-secondary) !important;
 }
@@ -352,5 +352,23 @@ a:hover {
 
 #health-con .btn {
   margin: 0.75rem 0;
+}
+
+#health-btn-con .col {
+  text-align: center;
+}
+
+.btn-primary:active {
+  transform: scale(0.9);
+}
+
+#contact-icon a:active {
+  transform: scale(0.9);
+}
+
+.btn-primary:focus {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+  color: #000 !important;
 }
 

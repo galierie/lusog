@@ -200,3 +200,27 @@ May 19
             Fixed quotes and other text
             
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 20
+    11:37AM - 11:49AM
+        Fixed kidName problem
+
+        init-calc.js
+            Made if statement checking if the first chracter of the name is a letter from A-Z
+
+    9:14PM - 9:34PM
+        Separated the 5-19 age group to 5-10 and 10-19
+
+        base-data.js
+            Added sheets to gSheets[]
+
+        init-calc.js
+            Added another else if statement for the new age group in the event listener for each calc's submit button
+
+    9:51PM - 10:06PM
+        Completely forgot about the food portions info page
+
+        index.html
+            Added a button for the food portions info page
+            Added href attributes to the buttons going to other webpages
+            Added some mousedown effects for buttons lmao
