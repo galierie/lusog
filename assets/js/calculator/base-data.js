@@ -137,8 +137,13 @@ const gSheets = [
     },
     {
         canvasID: "h4a-girl-kid",
-        title: "Height-for-Age (F, 5-19 yrs)",
+        title: "Height-for-Age (F, 5-10 yrs)",
         gsID: 1844474538,
+    },
+    {
+        canvasID: "h4a-girl-teen",
+        title: "Height-for-Age (F, 10-19 yrs)",
+        gsID: 2057672919,
     },
     {
         canvasID: "h4a-boy-infant",
@@ -152,8 +157,13 @@ const gSheets = [
     },
     {
         canvasID: "h4a-boy-kid",
-        title: "Height-for-Age (M, 5-19 yrs)",
+        title: "Height-for-Age (M, 5-10 yrs)",
         gsID: 998321320,
+    },
+    {
+        canvasID: "h4a-boy-teen",
+        title: "Height-for-Age (M, 10-19 yrs)",
+        gsID: 1194792263,
     },
 
     //BMI-for-age
@@ -169,8 +179,13 @@ const gSheets = [
     },
     {
         canvasID: "bmi4a-girl-kid",
-        title: "BMI-for-Age (F, 5-19 yrs)",
+        title: "BMI-for-Age (F, 5-10 yrs)",
         gsID: 307989340,
+    },
+    {
+        canvasID: "bmi4a-girl-teen",
+        title: "BMI-for-Age (F, 10-19 yrs)",
+        gsID: 431779982,
     },
     {
         canvasID: "bmi4a-boy-infant",
@@ -184,8 +199,13 @@ const gSheets = [
     },
     {
         canvasID: "bmi4a-boy-kid",
-        title: "BMI-for-Age (M, 5-19 yrs)",
+        title: "BMI-for-Age (M, 5-10 yrs)",
         gsID: 1408176015,
+    },
+    {
+        canvasID: "bmi4a-boy-teen",
+        title: "BMI-for-Age (M, 10-19 yrs)",
+        gsID: 73573551,
     },
     
     //Weight-for-height
