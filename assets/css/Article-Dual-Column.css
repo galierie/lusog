@@ -175,8 +175,8 @@
 .calc {
   margin: 1rem 0;
   padding: 0.5rem;
-  border-top: 2px solid rgba(var(--bs-primary-rgb, 0.5));
-  border-bottom: 2px solid rgba(var(--bs-primary-rgb, 0.5));
+  border-top: 2px solid rgba(var(--bs-primary-rgb), 0.5);
+  border-bottom: 2px solid rgba(var(--bs-primary-rgb), 0.5);
 }
 
 .form-btn-div > button {
@@ -203,6 +203,7 @@
 .btn-close {
   background-color: var(--bs-primary);
   border-radius: 50%;
+  opacity: 1;
 }
 
 .status > * {
@@ -280,13 +281,14 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (min-width: 768px) {
   .input-calc {
-    width: 40%;
+    width: 50%;
+    border-right: 2px solid rgba(var(--bs-primary-rgb), 0.5);
   }
 }
 
 @media (min-width: 768px) {
   .output-calc {
-    width: 60%;
+    width: 50%;
   }
 }
 
@@ -330,9 +332,6 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--bs-secondary) !important;
 }
 
-.btn {
-}
-
 a:hover {
   color: var(--bs-secondary) !important;
 }
@@ -370,5 +369,33 @@ a:hover {
   background-color: var(--bs-primary) !important;
   border-color: var(--bs-primary) !important;
   color: #000 !important;
+}
+
+.btn-primary:active:focus, .btn-primary:focus {
+  box-shadow: 0 0 0 0.25rem rgba(148,86,0,0.5) !important;
+}
+
+@media (max-width: 767px) {
+  .input-calc {
+    border-bottom: 2px solid rgba(var(--bs-primary-rgb), 0.5);
+  }
+}
+
+.rm-calc {
+  width: 2rem;
+  height: 2rem;
+}
+
+.btn-close:hover {
+  background-color: var(--bs-secondary) !important;
+  color: #ffffff !important;
+}
+
+.btn-close:active {
+  transform: scale(0.9);
+}
+
+.btn-close:active:focus, .btn-close:focus {
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-secondary-rgb), 0.5) !important;
 }
 
