@@ -53,7 +53,7 @@ function buildReport(kidCalc, at, b){
             atLabel += "Weight-for-Height";
             break;
     }
-    rLabels[2].innerHTML = `${kidCalc.id}'s ${atLabel} Z-Score Chart: `;
+    rLabels[0].innerHTML = `${kidCalc.id}'s ${atLabel} Z-Score Chart: `;
     summary.getElementsByClassName("summary-title")[0].innerHTML = `${atLabel}: `;
 
     kidCalc.getElementsByClassName("actual-report")[0].appendChild(report);
@@ -160,7 +160,7 @@ function buildCalc(){
         }
 
         //Shows the kid's BMI
-        let bmi = w / ((h / 100) ** 2);
+        let bmi = Math.round(((w / ((h / 100) ** 2)) * 100).toPrecision(10)) / 100;
         document.getElementById(`${kidName}-bmi`).innerHTML = bmi;
 
         //Get the blocking 
@@ -209,6 +209,11 @@ function buildCalc(){
         if(0 <= a && a <= 60) newData(kidName, "w4h", blocking, w, h);
 
         kidCalc.getElementsByClassName("summary-report")[0].style.display = "block";
+    }
+
+    //Removes the calculator
+    kidCalc.getElementsByClassName("rm-calc")[0].onclick = () => {
+        kidCalc.remove();
     }
 
     document.getElementById("calculators").insertBefore(kidCalc, document.getElementById("kid-amount-div"));
