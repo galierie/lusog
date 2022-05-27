@@ -228,7 +228,7 @@ May 20
 May 22
     6:46PM - 7:16PM, 9:20PM - 10:05PM
         Minor changes to UI
-        Fixed BMI and z-score numbers to 2 decimal places
+        Fixed BMI and z-scores to 2 decimal places
 
         index.html
             Added a button to remove a calculator ("rm-button")
@@ -237,6 +237,7 @@ May 22
         calc-input.js
             Used Math.round((z-score * 100).toPrecision(10)) / 100 on the z-score to reduce to 2 decimal places
             Added "Severe Thinness" and "Moderate Thinness" to the "SAM" and "MAM" interpretations
+            Tinkered with "show the ideal weight and height" suggestion
 
         init-calc.js
             Used Math.round((bmi * 100).toPrecision(10)) / 100 on the bmi to reduce to 2 decimal places
