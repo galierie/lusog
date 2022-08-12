@@ -242,3 +242,17 @@ May 22
         init-calc.js
             Used Math.round((bmi * 100).toPrecision(10)) / 100 on the bmi to reduce to 2 decimal places
             Added kidCalc.remove() in the rm-button event listener
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aug. 12
+    2:06PM - 3:01PM, 4:01PM - 4:50PM
+        Added input fields for mode of height measurement (standing or recumbent) for 0 to 5-year-olds
+
+        index.html
+            Added new input fields for mode of height measurement (recumbent or standing)
+            Added class "form-radio" to both new input field and biological sex
+
+        init-calc.js
+            Calculated height of 0 to 60-month-olds relative to the mode of height measurement
+            Added a new warning modal for that field

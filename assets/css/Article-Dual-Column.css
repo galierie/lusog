@@ -260,13 +260,13 @@
   padding: 2rem;
 }
 
-.sex .form-check {
+.form-radio .form-check {
   display: flex;
   justify-content: flex-start;
   padding: 0 2rem;
 }
 
-.sex div {
+.form-radio div {
   display: flex;
   justify-content: center;
 }
