@@ -94,7 +94,7 @@
                                     <div class="age"><label class="form-label" for="kidName-age">Edad (buwan):&nbsp;</label><input type="text" id="kidName-age"></div>
                                 </div>
                                 <div class="col">
-                                    <div class="sex">
+                                    <div class="form-radio sex">
                                         <p style="margin: 0;">Kasarian (M/F):&nbsp;<br></p>
                                         <div>
                                             <div class="form-check"><input class="form-check-input" type="radio" id="kidName-male" name="kidName-sex" value="M"><label class="form-check-label" for="kidName-male">&nbsp;M</label></div>
@@ -105,9 +105,26 @@
                             </div>
                             <div class="row form">
                                 <div class="col">
-                                    <div class="date"><label class="form-label" for="kidName-date">Petsa kung kailan kinuhanan ng tangkad at timbang:&nbsp;</label><input id="kidName-date" type="date"></div>
-                                    <div class="height"><label class="form-label" for="kidName-height">Tangkad (sentimetro):&nbsp;</label><input type="text" id="kidName-height"></div>
+                                    <div class="date"><label class="form-label" for="kidName-date">Petsa kung kailan kinuhanan ng timbang at&nbsp;<br>tangkad:&nbsp;</label><input id="kidName-date" type="date"></div>
                                     <div class="weight"><label class="form-label" for="kidName-weight">Timbang (kilo):&nbsp;</label><input type="text" id="kidName-weight"></div>
+                                </div>
+                            </div>
+                            <div class="row form">
+                                <div class="col">
+                                    <div class="height"><label class="form-label" for="kidName-height">Tangkad (sentimetro):&nbsp;</label><input type="text" id="kidName-height"></div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-radio measure">
+                                        <p style="margin: 0;">Paraan ng Pagkuha ng Tangkad (0-60 months lamang):<br></p>
+                                        <div>
+                                            <div class="form-check"><input class="form-check-input" type="radio" id="kidName-rec" name="kidName-measure" value="R"><label class="form-check-label" for="kidName-rec">&nbsp;Nakahiga</label></div>
+                                            <div class="form-check"><input class="form-check-input" type="radio" id="kidName-stand" name="kidName-measure" value="S"><label class="form-check-label" for="kidName-stand">&nbsp;Nakatayo</label></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form">
+                                <div class="col">
                                     <div style="display: flex;justify-content: flex-end;"><button class="btn btn-primary submit" type="button" style="width: 10rem;">Kalkulahin</button></div>
                                 </div>
                             </div>
