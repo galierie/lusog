@@ -107,10 +107,7 @@ function buildCalc(){
         //Check kidCalc ID if
         //null
         if(
-            (
-                kidName === "" 
-                || kidName === null
-            ) 
+            (kidName === "" || kidName === null) 
             && kidCalc.id === "calc-temp"
         ){
             alert("Pakilagay po ang pangalan ng bata. Salamat!");
@@ -130,12 +127,17 @@ function buildCalc(){
                 ? Array.from(document.getElementsByName(`${kidName}-sex`)).find(r => r.checked).value 
                 : null,
             d = document.getElementById(`${kidName}-date`).value,
+            w = (document.getElementById(`${kidName}-weight`).value)
+                ? +`${document.getElementById(`${kidName}-weight`).value}`
+                : null,
             h = (document.getElementById(`${kidName}-height`).value)
                 ? +`${document.getElementById(`${kidName}-height`).value}`
                 : null,
-            w = (document.getElementById(`${kidName}-weight`).value)
-                ? +`${document.getElementById(`${kidName}-weight`).value}`
-                : null;
+            m = ((a !== undefined) && (a > 60)) 
+                ? "S"
+                :(Array.from(document.getElementsByName(`${kidName}-measure`)).find(r => r.checked) !== undefined) 
+                    ? Array.from(document.getElementsByName(`${kidName}-measure`)).find(r => r.checked).value 
+                    : null;
 
         //Check the input
         if(a === "" || a === null){
@@ -150,14 +152,22 @@ function buildCalc(){
             alert("Pakilagay po ang petsa ngayon. Salamat!");
             return;
         }
-        else if(h === "" || h === null){
-            alert("Pakilagay po ang tangkad ng bata. Salamat!");
-            return;
-        }
         else if(w === "" || w === null){
             alert("Pakilagay po ang timbang ng bata. Salamat!");
             return;
         }
+        else if(h === "" || h === null){
+            alert("Pakilagay po ang katangkaran ng bata. Salamat!");
+            return;
+        }
+        else if((a < 61) && (m === "" || m === null)){
+            alert("Pakilagay po ang paraan ng pagkuha ng katangkaran ng bata. Salamat!");
+            return;
+        }
+
+        //Compute the kid's height
+        if((m === "R") && (23 < a && a < 61)) h -= 0.7;
+        else if((m === "S") && (a <= 23)) h += 0.7; 
 
         //Shows the kid's BMI
         let bmi = Math.round(((w / ((h / 100) ** 2)) * 100).toPrecision(10)) / 100;
@@ -166,8 +176,8 @@ function buildCalc(){
         //Get the blocking 
         let bioSex, ageGroup;
 
-        if(s === "M" || s === "m"){ bioSex = "boy"; }
-        else if(s === "F" || s === "f"){ bioSex = "girl"; }
+        if(s === "M"){ bioSex = "boy"; }
+        else if(s === "F"){ bioSex = "girl"; }
 
         if(0 <= a && a <= 24){ ageGroup = "infant"; }
         else if(24 < a && a <= 60){ ageGroup = "toddler"; }
