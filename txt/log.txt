@@ -256,3 +256,13 @@ Aug. 12
         init-calc.js
             Calculated height of 0 to 60-month-olds relative to the mode of height measurement
             Added a new warning modal for that field
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aug. 14
+    4:52PM - 6:23PM, 9:20PM - 9:46PM
+        Found out the modified z-score formula WHO used for z-scores less than -3 and greater than +3
+
+        calc-input.js
+            Added an if-else block for affected z-scores
+            Changed the label for the kid's data point on the growth chart

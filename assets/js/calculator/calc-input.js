@@ -24,7 +24,17 @@ function getIdeal(blocking, age){
 //Actually calculates z-scores
 function zCalc(zsData, bmy, xIndex){
     let [bc, median, coeff_var] = zsData[1][2].map(e => e[xIndex]);
-    return (((bmy / median) ** bc) - 1) / (bc * coeff_var);
+    let z = (((bmy / median) ** bc) - 1) / (bc * coeff_var);
+
+    if(-3 <= z && z <= 3) return z;
+    else {
+        //Modified z-score formula for z-scores less than -3 and greater than +3 
+        let z2 = zsData[1][1][(-3 > z) ? 1 : 5].data[xIndex], 
+            z3 = zsData[1][1][(-3 > z) ? 0 : 6].data[xIndex];
+        
+        //Essentially the normal z-score formula except the first 3SDs are computed differently        
+        return ((bmy - z3) / Math.abs(z3 - z2)) + ((-3 > z) ? -3 : 3);
+    }
 }
 
 //Interprets nutritional status per chart
@@ -46,7 +56,7 @@ function interpretNutriStatus(at, z){
 
         case "bmi4a":
             if(z < -3){ return "Severe Wasting/Severe Thinness/Severe Acute Malnutrition (SAM)"; }
-            else if(-3 <= z && z <-2){ return "Moderate Wasting/Moderate Thinness/Moderate Acute Malnutrition (MAM)"; }
+            else if(-3 <= z && z < -2){ return "Moderate Wasting/Moderate Thinness/Moderate Acute Malnutrition (MAM)"; }
             else if(-2 <= z && z <= 1){ return "Normal"; }
             else if(1 < z && z <= 2){ return "Possible Risk of Overweight"; }
             else if(2 < z && z <= 3){ return "Overweight"; }
@@ -55,7 +65,7 @@ function interpretNutriStatus(at, z){
 
         case "w4h":
             if(z < -3){ return "Severe Wasting/Severe Acute Malnutrition (SAM)"; }
-            else if(-3 <= z && z <-2){ return "Moderate Wasting/Moderate Acute Malnutrition (MAM)"; }
+            else if(-3 <= z && z < -2){ return "Moderate Wasting/Moderate Acute Malnutrition (MAM)"; }
             else if(-2 <= z && z <= 1){ return "Normal"; }
             else if(1 < z && z <= 2){ return "Possible Risk of Overweight"; }
             else if(2 < z && z <= 3){ return "Overweight"; }
@@ -97,7 +107,7 @@ function newData(kidName, at, blocking, bmy, bmx){
     let anthroData = [];
     for(let i = 0; i < zsData[1][0].length; i++){ (xIndex === i) ? anthroData.push(bmy) : anthroData.push(null); }
 
-    let anthroDataset = new Dataset("No Z-Score", anthroData); 
+    let anthroDataset = new Dataset(kidName, anthroData); 
     inputChart(kidName, anthroID, anthroDataset);
 
     return;
