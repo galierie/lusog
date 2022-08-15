@@ -179,8 +179,8 @@ function buildCalc(){
         if(s === "M"){ bioSex = "boy"; }
         else if(s === "F"){ bioSex = "girl"; }
 
-        if(0 <= a && a <= 24){ ageGroup = "infant"; }
-        else if(24 < a && a <= 60){ ageGroup = "toddler"; }
+        if(0 <= a && a <= 23){ ageGroup = "infant"; }
+        else if(23 < a && a <= 60){ ageGroup = "toddler"; }
         else if(60 < a && a <= 120){ ageGroup = "kid"; }
         else if(120 < a && a <= 228){ ageGroup = "teen"; }
 
