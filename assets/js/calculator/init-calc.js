@@ -4,12 +4,12 @@
 
 //Makes the summary report
 function buildReport(kidCalc, at, b){
-    //Make the report and rename it
+    //Makes the report and rename it
     let report = document.getElementById("report-temp").cloneNode(true);
     report.classList.add(`${at}-report`);
     report.id = `${kidCalc.id}-${at}-report`;
 
-    //Rename the output fields
+    //Renames the output fields
     let rLabels = report.getElementsByTagName("label"),
         types = ["charts", "zs", "ns"];
 
@@ -19,7 +19,7 @@ function buildReport(kidCalc, at, b){
         report.getElementsByClassName(types[i])[0].id = fieldID;
     }
 
-    //Make the summary and rename it
+    //Makes the summary and renames it
     let summary = document.getElementById("summary-temp").cloneNode(true);
     summary.classList.add(`${at}-summary`);
     summary.id = "";
@@ -30,14 +30,14 @@ function buildReport(kidCalc, at, b){
         summary.getElementsByTagName("label")[i - 1].htmlFor = fieldID;
     }
 
-    //Add the event listener to the button
+    //Adds the event listener to the button
     let reportBtn = summary.getElementsByTagName("button")[0];
     reportBtn.setAttribute("data-bs-target", `#${kidCalc.id}-${at}-report`);
     reportBtn.onclick = () => {
         report.style.display = "block";
     }
 
-    //Fix the label for the growth chart
+    //Fixes the label for the growth chart
     let atLabel = "";
     switch(at){
         case "w4a":
@@ -96,10 +96,52 @@ function buildCalc(){
             }
         }
 
-        //BMI Status
-        let bmiDiv = kidCalc.getElementsByClassName("bmi-div")[0]; 
-        bmiDiv.getElementsByTagName("p")[0].id = `${kidName}-bmi`;
-        bmiDiv.getElementsByTagName("label")[0].htmlFor = `${kidName}-bmi`;
+        //BMI Status and Ideal Weight and Height
+        let miscDiv = kidCalc.getElementsByClassName("misc-div")[0].getElementsByTagName("div"),
+            miscStat = ["bmi", "ideal-w", "ideal-h"]; 
+        for(let i = 0; i < miscStat.length; i++){
+            miscDiv[i].getElementsByTagName("p")[0].id = `${kidName}-${miscStat[i]}`;
+            miscDiv[i].getElementsByTagName("label")[0].htmlFor = `${kidName}-${miscStat[i]}`;
+        }
+    }
+
+    //Sets mode of height measurement
+    let ageInput = kidCalc.getElementsByClassName("age")[0].getElementsByTagName("input")[2];
+    ageInput.onchange = () => {
+        let measureInput = kidCalc.getElementsByClassName("measure")[0].getElementsByTagName("input"),
+            mode = (ageInput.value > 60) ? 1 : 0,
+            notMode = (ageInput.value > 60) ? 0 : 1;
+
+        measureInput[notMode].removeAttribute("checked");
+        measureInput[mode].setAttribute("checked", "true");
+    }
+
+    //Calculates age from birthday
+    let dateInput = kidCalc.getElementsByClassName("date")[0].getElementsByTagName("input")[0],
+        bdateBool = kidCalc.getElementsByClassName("age")[0].getElementsByTagName("input")[0],
+        bdateInput = kidCalc.getElementsByClassName("age")[0].getElementsByTagName("input")[1];
+
+    bdateInput.onchange = dateInput.onchange = () => {
+        if((bdateInput.value !== "" && dateInput.value !== "") && !(bdateBool.checked)){
+            let bdate = new Date(bdateInput.value),
+                date = new Date(dateInput.value);
+
+            let age = ((date.getFullYear() - bdate.getFullYear()) * 12) + (date.getMonth() - bdate.getMonth());
+            ageInput.value = age;
+            ageInput.dispatchEvent(new Event("change"));
+        }
+    }
+
+    //See if age is calculable
+    bdateBool.onchange = () => {
+        if(bdateBool.checked){
+            ageInput.removeAttribute("disabled");
+            bdateInput.setAttribute("disabled", "true");
+        }
+        else {
+            ageInput.setAttribute("disabled", "true");
+            bdateInput.removeAttribute("disabled");
+        }
     }
 
     //Calls functions to process the input
@@ -217,6 +259,11 @@ function buildCalc(){
         newData(kidName, "h4a", blocking, h, a);
         newData(kidName, "bmi4a", blocking, bmi, a);
         if(0 <= a && a <= 60) newData(kidName, "w4h", blocking, w, h);
+
+        //Show the ideal weight and height
+        let [idealW, idealH] = getIdeal(blocking, a);
+        document.getElementById(`${kidName}-ideal-w`).innerHTML = idealW;
+        document.getElementById(`${kidName}-ideal-h`).innerHTML = idealH;
 
         kidCalc.getElementsByClassName("summary-report")[0].style.display = "block";
     }

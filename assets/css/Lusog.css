@@ -1,0 +1,289 @@
+.contacts li {
+  list-style-type: none;
+  margin: -5% 0;
+}
+
+#contact-icon {
+  display: flex;
+  justify-content: center;
+}
+
+#kid-amount-div h4 {
+  text-align: center;
+  margin: 0;
+}
+
+#kid-amount-div .col-md-6 {
+  display: flex;
+  justify-content: center;
+}
+
+#kid-amount-div input {
+  border: 1.5px solid var(--bs-primary);
+  height: 100%;
+}
+
+#kid-amount-div button {
+  height: 100%;
+  border-radius: 0px;
+  border-style: none;
+}
+
+#kid-amount-div section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#contact-icon a {
+  color: var(--bs-primary);
+  padding: 0 5%;
+}
+
+.form label {
+  margin: 0;
+}
+
+.form input {
+  border-radius: 0.25rem;
+  border: 1.5px solid var(--bs-primary);
+}
+
+.summary-div {
+  margin-top: 2.5%;
+}
+
+.form div {
+  padding: 0.25rem;
+  display: grid;
+}
+
+.calc {
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border-top: 2px solid rgba(var(--bs-primary-rgb), 0.5);
+  border-bottom: 2px solid rgba(var(--bs-primary-rgb), 0.5);
+}
+
+.form-btn-div > button {
+  margin: 0 2.5%;
+}
+
+.btn-report {
+  display: none;
+}
+
+.misc-div > * {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.modal-content {
+  border: 2px solid var(--bs-primary);
+}
+
+.btn-close {
+  background-color: var(--bs-primary);
+  border-radius: 50%;
+  opacity: 1;
+}
+
+.status > * {
+  display: flex;
+  align-items: center;
+}
+
+.status > * > * {
+  margin: 0;
+}
+
+.kidName-anthroType-report {
+  margin: 5% 0;
+}
+
+.chart {
+  display: grid;
+}
+
+.charts {
+  margin: auto;
+}
+
+.modal-dialog {
+  margin: 10%;
+  max-width: 100%;
+  width: 80%;
+}
+
+.modal {
+  height: 100%;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  #kid-amount-div h4 {
+    margin: 0 0;
+  }
+}
+
+#kid-amount-div {
+  padding: 2rem;
+}
+
+#kid-amount-div .row {
+  padding: 0.75rem;
+}
+
+#contact-icon i {
+  font-size: 32.5px;
+}
+
+#contacts {
+  padding: 2rem;
+}
+
+.form-radio .form-check {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 2rem;
+}
+
+.form-radio div {
+  display: flex;
+  justify-content: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.navbar {
+  border-bottom: 2px solid rgba(191, 183, 182, 0.5);
+}
+
+@media (min-width: 768px) {
+  .input-calc {
+    width: 50%;
+    border-right: 2px solid rgba(var(--bs-primary-rgb), 0.5);
+  }
+}
+
+@media (min-width: 768px) {
+  .output-calc {
+    width: 50%;
+  }
+}
+
+p, a, button, label, input {
+  font-family: 'Cabin', sans-serif;
+}
+
+.summary div {
+  display: flex;
+  padding: 0.25rem;
+}
+
+.summary div > * {
+  margin: 0;
+}
+
+.summary {
+  margin: 1rem 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-align: center;
+}
+
+.section-head {
+  text-align: center;
+  /*margin: 2rem auto;*/
+}
+
+.section-head i {
+  font-size: 4.5rem;
+  margin: 2rem;
+}
+
+.section-head h2 {
+  margin: 2rem;
+}
+
+.btn-primary:hover, .btn-primary:active {
+  background-color: var(--bs-secondary) !important;
+  border-color: var(--bs-secondary) !important;
+}
+
+a:hover {
+  color: var(--bs-secondary) !important;
+}
+
+.nav-item:hover {
+  background-color: rgba(191, 183, 182, 0.25);
+}
+
+.nav-item {
+  height: 100%;
+  padding: 0.75rem 0;
+}
+
+.navigation-clean .dropdown-item:hover {
+  color: rgba(0,0,0,0.9) !important;
+}
+
+#health-con .btn {
+  margin: 0.75rem 0;
+}
+
+#health-btn-con .col {
+  text-align: center;
+}
+
+.btn-primary:active {
+  transform: scale(0.9);
+}
+
+#contact-icon a:active {
+  transform: scale(0.9);
+}
+
+.btn-primary:focus {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+  color: #000 !important;
+}
+
+.btn-primary:active:focus, .btn-primary:focus {
+  box-shadow: 0 0 0 0.25rem rgba(148,86,0,0.5) !important;
+}
+
+@media (max-width: 767px) {
+  .input-calc {
+    border-bottom: 2px solid rgba(var(--bs-primary-rgb), 0.5);
+  }
+}
+
+.rm-calc {
+  width: 2rem;
+  height: 2rem;
+}
+
+.btn-close:hover {
+  background-color: var(--bs-secondary) !important;
+  color: #ffffff !important;
+}
+
+.btn-close:active {
+  transform: scale(0.9);
+}
+
+.btn-close:active:focus, .btn-close:focus {
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-secondary-rgb), 0.5) !important;
+}
+
+.misc-div > p {
+  margin: 0;
+}
+

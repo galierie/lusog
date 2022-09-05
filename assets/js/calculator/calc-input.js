@@ -3,23 +3,29 @@
 */
 
 //Gets the ideal weight and height
-//To be edited
-/*
 function getIdeal(blocking, age){
-    //Get the ideal height first
+    //Get the ideal height
     let h4aDataset = h4aData.find(e => e[0] === `h4a-${blocking}`);
-    let h4aIndex = h4aDataset[1][0].findIndex(e = +`${e}` === age);
-    let [, h4a_low, , , , , h4a_high] = h4aDataset[1][1].map(z => z[h4aIndex]);
+    let i = h4aDataset[1][0].findIndex(e => +`${e}` === age);
+    let lh = h4aDataset[1][1][1].data[i];
+    let h = `${Math.round((lh * 100).toPrecision(10)) / 100}cm and above`;
     
-    //Compare if ideal height is within bounds 
-    let [bioSex, ageGroup] = blocking.split("-");
-    if((ageGroup === "toddler") || (ageGroup === "toddler")){
-        let w4h
+    //Get the ideal weight
+    let lw, uw;
+    if(age < 121){
+        let w4aDataset = w4aData.find(e => e[0] === `w4a-${blocking}`);
+        lw = w4aDataset[1][1][1].data[i];
+        uw = w4aDataset[1][1][4].data[i];
     }
+    else {
+        let bmi4aDataset = bmi4aData.find(e => e[0] === `bmi4a-${blocking}`);
+        lw = bmi4aDataset[1][1][1].data[i] * ((lh / 100) ** 2);
+        uw = bmi4aDataset[1][1][4].data[i] * ((lh / 100) ** 2);
+    }
+    let w = `${Math.round((lw * 100).toPrecision(10)) / 100}kg - ${Math.round((uw * 100).toPrecision(10)) / 100}kg`;
 
-    return [w, h]
+    return [w, h];
 }
-*/
 
 //Actually calculates z-scores
 function zCalc(zsData, bmy, xIndex){
@@ -95,13 +101,24 @@ function newData(kidName, at, blocking, bmy, bmx){
     }
     let xIndex = zsData[1][0].findIndex(e => +`${e}` === bmx); //Get the right age/height/x-value
 
-    let z_score = Math.round((zCalc(zsData, bmy, xIndex) * 100).toPrecision(10)) / 100; //Calculate the z-score
+    let z_score = Math.round((zCalc(zsData, bmy, xIndex) * 1000).toPrecision(10)) / 1000; //Calculate the z-score
     let nutri_status = interpretNutriStatus(at, z_score); //Interpret z-score
 
     document.getElementById(`${kidName}-${at}-zs-summary`).innerHTML = z_score;
     document.getElementById(`${kidName}-${at}-ns-summary`).innerHTML = nutri_status;
     document.getElementById(`${kidName}-${at}-zs`).innerHTML = z_score;
     document.getElementById(`${kidName}-${at}-ns`).innerHTML = nutri_status;
+
+    //Disclaimers if the child does not have a normal nutritional status
+    if(nutri_status !== "Normal"){
+        let disclaimer = "\nDisclaimer: ";
+        disclaimer += (nutri_status.includes("Severe Acute Malnutrition")) 
+            ? "Please consult a doctor immediately."
+            : "Consulting a doctor is recommended.";
+
+        document.getElementById(`${kidName}-${at}-ns-summary`).innerHTML += "<br />" + disclaimer;
+        document.getElementById(`${kidName}-${at}-ns`).innerHTML += "<br />" + disclaimer;
+    }
 
     //New z-score chart
     let anthroData = [];

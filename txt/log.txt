@@ -266,3 +266,71 @@ Aug. 14
         calc-input.js
             Added an if-else block for affected z-scores
             Changed the label for the kid's data point on the growth chart
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sept. 01
+    10:48AM - 11:45AM
+        Added default selected radio buttons
+
+        index.html
+            Added new input fields for known and unknown birthdates 
+            Added classes for divs containing the age and date input fields
+        
+        init-calc.js
+            Added an event listener for the age input field 
+
+    6:15PM - 7:43PM, 8:29PM - 8:44PM
+        Added an automatic age calculator from inputted birthdate
+        Disabled input fields from actual input by toggle
+
+        index.html
+            Deleted the known birthdate input field
+            Changed the unknown birthdate radio button to checkbox 
+            Changed "kidName-bday" id to "kidName-bdate"
+
+        init-calc.js
+            Modified the birthdate/age input field toggle 
+            Added event listeners for the birthdate and date input fields
+
+    9:00PM - 10:00PM
+        Added ideal height and weight
+
+        calc-input.js
+            Made getIdeal() to get the ideal weight and height from the W4A and the H4A values
+
+Sept. 03
+    11:42AM - 11:50AM
+        Tested the autoage calculator
+
+        init-calc.js
+            Added an if statement for birthdate and date event listeners
+
+    1:40PM - 2:40PM
+        Started adding disclaimers
+        Fixed the ideal height and weight
+
+        calc-input.js
+            Added an if statement in newData() for disclaimers on nutritional status interpretations
+            Fixed getIdeal() to include values from BMI4A in order to work for kids aged 10 yrs above
+
+    3:19PM - 3:27PM
+        Added disclaimers
+
+        calc-input.js
+            Fixed the if statement to properly show the disclaimers in the UI
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sept. 05
+    9:00PM - 9:50PM
+        Updated UI
+
+        index.html
+            Added the necessary input fields
+
+        Article-Dual-Column.css
+            Removed all custom CSS
+        
+        Lusog.css
+            Moved all custom CSS here
