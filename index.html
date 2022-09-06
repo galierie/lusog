@@ -87,49 +87,49 @@
                         <div class="col-md-6 input-calc">
                             <div class="row form">
                                 <div class="col">
-                                    <div class="kid-name"><label class="form-label" for="kidName-input">Pangalan:&nbsp;</label><input type="text" id="kidName-input"></div>
+                                    <div class="name"><label class="form-label" for="kidID-name">Pangalan:&nbsp;</label><input type="text" id="kidID-name"></div>
                                 </div>
                                 <div class="col">
                                     <div class="form-radio sex">
                                         <p style="margin: 0;">Kasarian (M/F):&nbsp;<br></p>
                                         <div>
-                                            <div class="form-check"><input class="form-check-input" type="radio" id="kidName-male" name="kidName-sex" value="M"><label class="form-check-label" for="kidName-male">&nbsp;M</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="radio" id="kidName-female" name="kidName-sex" value="F"><label class="form-check-label" for="kidName-female">&nbsp;F</label></div>
+                                            <div class="form-check"><input class="form-check-input" type="radio" id="kidID-male" name="kidID-sex" value="M"><label class="form-check-label" for="kidID-male">&nbsp;M</label></div>
+                                            <div class="form-check"><input class="form-check-input" type="radio" id="kidID-female" name="kidID-sex" value="F"><label class="form-check-label" for="kidID-female">&nbsp;F</label></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form age">
                                 <div class="col">
-                                    <div><input type="checkbox" id="kidName-nbdate" name="kidName-bdate"><label class="form-label" for="kidName-nbdate">Walang araw ng kapanganakan</label></div>
+                                    <div><input type="checkbox" id="kidID-nbdate" name="kidID-bdate"><label class="form-label" for="kidID-nbdate">Walang araw ng kapanganakan</label></div>
                                 </div>
                                 <div class="col">
-                                    <div><label class="form-label" for="kidName-bdate">Araw ng Kapanganakan:</label><input type="date" id="kidName-bdate"></div>
+                                    <div><label class="form-label" for="kidID-bdate">Araw ng Kapanganakan:</label><input type="date" id="kidID-bdate"></div>
                                 </div>
                                 <div class="col">
-                                    <div><label class="form-label" for="kidName-age">Edad (buwan):&nbsp;</label><input type="text" id="kidName-age" disabled="true"></div>
-                                </div>
-                            </div>
-                            <div class="row form">
-                                <div class="col">
-                                    <div class="date"><label class="form-label" for="kidName-date">Petsa kung kailan kinuhanan ng timbang at&nbsp;<br>tangkad:&nbsp;</label><input id="kidName-date" type="date"></div>
+                                    <div><label class="form-label" for="kidID-age">Edad (buwan):&nbsp;</label><input type="text" id="kidID-age" disabled="true"></div>
                                 </div>
                             </div>
                             <div class="row form">
                                 <div class="col">
-                                    <div class="weight"><label class="form-label" for="kidName-weight">Timbang (kilo):&nbsp;</label><input type="text" id="kidName-weight"></div>
+                                    <div class="date"><label class="form-label" for="kidID-date">Petsa kung kailan kinuhanan ng timbang at&nbsp;<br>tangkad:&nbsp;</label><input id="kidID-date" type="date"></div>
                                 </div>
                             </div>
                             <div class="row form">
                                 <div class="col">
-                                    <div class="height"><label class="form-label" for="kidName-height">Tangkad (sentimetro):&nbsp;</label><input type="text" id="kidName-height"></div>
+                                    <div class="weight"><label class="form-label" for="kidID-weight">Timbang (kilo):&nbsp;</label><input type="text" id="kidID-weight"></div>
+                                </div>
+                            </div>
+                            <div class="row form">
+                                <div class="col">
+                                    <div class="height"><label class="form-label" for="kidID-height">Tangkad (sentimetro):&nbsp;</label><input type="text" id="kidID-height"></div>
                                 </div>
                                 <div class="col">
                                     <div class="form-radio measure">
                                         <p style="margin: 0;">Paraan ng Pagkuha ng Tangkad:<br></p>
                                         <div>
-                                            <div class="form-check"><input class="form-check-input" type="radio" id="kidName-rec" name="kidName-measure" value="R"><label class="form-check-label" for="kidName-rec">&nbsp;Nakahiga</label></div>
-                                            <div class="form-check"><input class="form-check-input" type="radio" id="kidName-stand" name="kidName-measure" value="S"><label class="form-check-label" for="kidName-stand">&nbsp;Nakatayo</label></div>
+                                            <div class="form-check"><input class="form-check-input" type="radio" id="kidID-rec" name="kidID-measure" value="R"><label class="form-check-label" for="kidID-rec">&nbsp;Nakahiga</label></div>
+                                            <div class="form-check"><input class="form-check-input" type="radio" id="kidID-stand" name="kidID-measure" value="S"><label class="form-check-label" for="kidID-stand">&nbsp;Nakatayo</label></div>
                                         </div>
                                     </div>
                                 </div>
@@ -143,14 +143,14 @@
                         <div class="col-md-6 output-calc summary-report" style="display: none;">
                             <h4 style="padding: 0.5rem;">Mga Resulta</h4>
                             <div class="misc-div">
-                                <div class="bmi-div"><label class="form-label" for="kidName-bmi">BMI:&nbsp;</label>
-                                    <p id="kidName-bmi"></p>
+                                <div class="bmi-div"><label class="form-label" for="kidID-bmi">BMI:&nbsp;</label>
+                                    <p id="kidID-bmi"></p>
                                 </div>
-                                <div class="ideal-w"><label class="form-label" for="kidName-ideal-w">Ideal Weight:&nbsp;</label>
-                                    <p id="kidName-ideal-w"></p>
+                                <div class="ideal-w"><label class="form-label" for="kidID-ideal-w">Ideal Weight:&nbsp;</label>
+                                    <p id="kidID-ideal-w"></p>
                                 </div>
-                                <div class="ideal-h"><label class="form-label" for="kidName-ideal-h">Ideal Height:&nbsp;</label>
-                                    <p id="kidName-ideal-h"></p>
+                                <div class="ideal-h"><label class="form-label" for="kidID-ideal-h">Ideal Height:&nbsp;</label>
+                                    <p id="kidID-ideal-h"></p>
                                 </div>
                             </div>
                             <div class="summary-div"></div>
@@ -161,11 +161,11 @@
             </div>
             <div id="summary-temp" class="summary">
                 <h6 class="summary-title" style="margin: 0;text-align: left;">anthroType</h6>
-                <div><label class="form-label" for="kidName-anthroType-zs-summary">Z-Score:&nbsp;</label>
-                    <p id="kidName-anthroType-zs-summary" class="zs"></p>
+                <div><label class="form-label" for="kidID-anthroType-zs-summary">Z-Score:&nbsp;</label>
+                    <p id="kidID-anthroType-zs-summary" class="zs"></p>
                 </div>
-                <div><label class="form-label" for="kidName-anthroType-ns-summary">Kalagayan ng Nutrisyon:&nbsp;</label>
-                    <p id="kidName-anthroType-ns-summary" class="ns"></p>
+                <div><label class="form-label" for="kidID-anthroType-ns-summary">Kalagayan ng Nutrisyon:&nbsp;</label>
+                    <p id="kidID-anthroType-ns-summary" class="ns"></p>
                 </div>
                 <div style="justify-content: flex-end;"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#report-temp">Tignan ang Resulta</button></div>
             </div>
@@ -176,14 +176,14 @@
                             <h4 class="modal-title">Mga Resulta</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="kidName-anthroType-report">
-                                <div class="chart"><label class="form-label" for="kidName-anthroType-charts">kidName's anthroType Z-Score Chart:&nbsp;</label><canvas class="charts" id="kidName-anthroType-charts"></canvas></div>
+                            <div class="kidID-anthroType-report">
+                                <div class="chart"><label class="form-label" for="kidID-anthroType-charts">kidID's anthroType Z-Score Chart:&nbsp;</label><canvas class="charts" id="kidID-anthroType-charts"></canvas></div>
                                 <div class="status">
-                                    <div class="z-score"><label class="form-label" for="kidName-anthroType-zs">Z-Score:&nbsp;</label>
-                                        <p id="kidName-anthroType-zs" class="zs"></p>
+                                    <div class="z-score"><label class="form-label" for="kidID-anthroType-zs">Z-Score:&nbsp;</label>
+                                        <p id="kidID-anthroType-zs" class="zs"></p>
                                     </div>
-                                    <div class="nutri-status"><label class="form-label" for="kidName-anthroType-ns">Kalagayan ng Nutrisyon:&nbsp;</label>
-                                        <p id="kidName-anthroType-ns" class="ns"></p>
+                                    <div class="nutri-status"><label class="form-label" for="kidID-anthroType-ns">Kalagayan ng Nutrisyon:&nbsp;</label>
+                                        <p id="kidID-anthroType-ns" class="ns"></p>
                                     </div>
                                 </div>
                             </div>

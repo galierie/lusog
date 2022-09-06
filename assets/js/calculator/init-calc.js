@@ -2,8 +2,32 @@
     Initializes z-score calculators per kid.
 */
 
+//Generates an ID
+let kidIDList = [];
+function makeKidID(){
+    let engAB = "abcdefghijklmnopqrstuvwxyz";
+
+    let l = engAB[Math.floor(Math.random() * engAB.length)],
+        num = `${Math.floor(Math.random() * 100000000)}`;
+    while(num.length < 8) num = "0" + num;
+
+    let kidID = `${l}${num}`;
+
+    while(kidIDList.find(id => id === kidID) !== undefined){
+        l = engAB[Math.floor(Math.random() * engAB.length)];
+        num = `${Math.floor(Math.random() * 100000000)}`;
+        while(num.length < 8) num = "0" + num;
+
+        kidID = `${l}${num}`;
+    }
+
+    kidIDList.push(kidID);
+    
+    return kidID;
+}
+
 //Makes the summary report
-function buildReport(kidCalc, at, b){
+function buildReport(kidCalc, n, at, b){
     //Makes the report and rename it
     let report = document.getElementById("report-temp").cloneNode(true);
     report.classList.add(`${at}-report`);
@@ -33,9 +57,7 @@ function buildReport(kidCalc, at, b){
     //Adds the event listener to the button
     let reportBtn = summary.getElementsByTagName("button")[0];
     reportBtn.setAttribute("data-bs-target", `#${kidCalc.id}-${at}-report`);
-    reportBtn.onclick = () => {
-        report.style.display = "block";
-    }
+    reportBtn.onclick = () => { report.style.display = "block"; }
 
     //Fixes the label for the growth chart
     let atLabel = "";
@@ -53,7 +75,7 @@ function buildReport(kidCalc, at, b){
             atLabel += "Weight-for-Height";
             break;
     }
-    rLabels[0].innerHTML = `${kidCalc.id}'s ${atLabel} Z-Score Chart: `;
+    rLabels[0].innerHTML = `${n}'s ${atLabel} Z-Score Chart: `;
     summary.getElementsByClassName("summary-title")[0].innerHTML = `${atLabel}: `;
 
     kidCalc.getElementsByClassName("actual-report")[0].appendChild(report);
@@ -74,39 +96,37 @@ function buildReport(kidCalc, at, b){
 //Builds the z-score calculator per kid
 function buildCalc(){
     let kidCalc = document.getElementById("calc-temp").cloneNode(true), 
-        kidName = "";
+        kidID = makeKidID();
 
-    //Adds IDs to it to be able to specify it and changes IDs to reflect new kid name
-    kidCalc.getElementsByTagName("input")[0].onchange = () => {
-        kidName = "";
-        kidName = kidCalc.getElementsByTagName("input")[0].value;
-        kidCalc.id = kidName; //Entire Calculator
+    kidCalc.id = kidID; //Adds IDs to the calculator to be able to specify it 
 
-        //Input Fields and Labels
-        let calcInputs = kidCalc.getElementsByTagName("input"), 
-            labels = kidCalc.getElementsByTagName("label"); 
-        for(let i = 0; i < calcInputs.length; i++){
-            let field = calcInputs[i].id.split("-");
-            calcInputs[i].id = `${kidName}-${field[1]}`;
-            labels[i].htmlFor = calcInputs[i].id;
+    //Input Fields and Labels
+    let calcInputs = kidCalc.getElementsByTagName("input"), 
+        labels = kidCalc.getElementsByTagName("label"); 
+    for(let i = 0; i < calcInputs.length; i++){
+        let field = calcInputs[i].id.split("-");
+        calcInputs[i].id = `${kidID}-${field[1]}`;
+        labels[i].htmlFor = calcInputs[i].id;
 
-            if(calcInputs[i].type === "radio"){
-                let rGroup = calcInputs[i].name.split("-");
-                calcInputs[i].name = `${kidName}-${rGroup[1]}`;
-            }
-        }
-
-        //BMI Status and Ideal Weight and Height
-        let miscDiv = kidCalc.getElementsByClassName("misc-div")[0].getElementsByTagName("div"),
-            miscStat = ["bmi", "ideal-w", "ideal-h"]; 
-        for(let i = 0; i < miscStat.length; i++){
-            miscDiv[i].getElementsByTagName("p")[0].id = `${kidName}-${miscStat[i]}`;
-            miscDiv[i].getElementsByTagName("label")[0].htmlFor = `${kidName}-${miscStat[i]}`;
+        if(calcInputs[i].type === "radio" || calcInputs[i].type === "checkbox"){
+            let rGroup = calcInputs[i].name.split("-");
+            calcInputs[i].name = `${kidID}-${rGroup[1]}`;
         }
     }
 
+    //BMI Status and Ideal Weight and Height
+    let miscDiv = kidCalc.getElementsByClassName("misc-div")[0].getElementsByTagName("div"),
+        miscStat = ["bmi", "ideal-w", "ideal-h"]; 
+    for(let i = 0; i < miscStat.length; i++){
+        miscDiv[i].getElementsByTagName("p")[0].id = `${kidID}-${miscStat[i]}`;
+        miscDiv[i].getElementsByTagName("label")[0].htmlFor = `${kidID}-${miscStat[i]}`;
+    }
+
+    document.getElementById("calculators").insertBefore(kidCalc, document.getElementById("kid-amount-div"));
+
+    //Event Listeners
     //Sets mode of height measurement
-    let ageInput = kidCalc.getElementsByClassName("age")[0].getElementsByTagName("input")[2];
+    let ageInput = document.getElementById(`${kidID}-age`);
     ageInput.onchange = () => {
         let measureInput = kidCalc.getElementsByClassName("measure")[0].getElementsByTagName("input"),
             mode = (ageInput.value > 60) ? 1 : 0,
@@ -117,16 +137,21 @@ function buildCalc(){
     }
 
     //Calculates age from birthday
-    let dateInput = kidCalc.getElementsByClassName("date")[0].getElementsByTagName("input")[0],
-        bdateBool = kidCalc.getElementsByClassName("age")[0].getElementsByTagName("input")[0],
-        bdateInput = kidCalc.getElementsByClassName("age")[0].getElementsByTagName("input")[1];
+    let dateInput = document.getElementById(`${kidID}-date`),
+        bdateBool = document.getElementById(`${kidID}-nbdate`),
+        bdateInput = document.getElementById(`${kidID}-bdate`);
 
     bdateInput.onchange = dateInput.onchange = () => {
         if((bdateInput.value !== "" && dateInput.value !== "") && !(bdateBool.checked)){
             let bdate = new Date(bdateInput.value),
                 date = new Date(dateInput.value);
 
-            let age = ((date.getFullYear() - bdate.getFullYear()) * 12) + (date.getMonth() - bdate.getMonth());
+            let age = Math.round(
+                ((date.getFullYear() - bdate.getFullYear()) * 12) 
+                + (date.getMonth() - bdate.getMonth()) 
+                + ((date.getDate() - bdate.getDate()) * 0.033)
+            );
+
             ageInput.value = age;
             ageInput.dispatchEvent(new Event("change"));
         }
@@ -146,42 +171,34 @@ function buildCalc(){
 
     //Calls functions to process the input
     kidCalc.getElementsByClassName("submit")[0].onclick = () => {
-        //Check kidCalc ID if
-        //null
-        if(
-            (kidName === "" || kidName === null) 
-            && kidCalc.id === "calc-temp"
-        ){
-            alert("Pakilagay po ang pangalan ng bata. Salamat!");
-            return;
-        }
-        //first character is not a letter
-        if(!(kidName[0].match(/[a-z]/gi))){
-            alert("Mangyaring baguhin lamang po ang unang karakter ng pangalan ng bata sa isang letra. Salamat!");
-            return;
-        }
-
         //Get the input
-        let a = (document.getElementById(`${kidName}-age`).value)
-                ? +`${document.getElementById(`${kidName}-age`).value}`
+        let n = (document.getElementById(`${kidID}-name`).value)
+                ? +`${document.getElementById(`${kidID}-name`).value}`
                 : null,
-            s = (Array.from(document.getElementsByName(`${kidName}-sex`)).find(r => r.checked) !== undefined) 
-                ? Array.from(document.getElementsByName(`${kidName}-sex`)).find(r => r.checked).value 
+            a = (document.getElementById(`${kidID}-age`).value)
+                ? +`${document.getElementById(`${kidID}-age`).value}`
                 : null,
-            d = document.getElementById(`${kidName}-date`).value,
-            w = (document.getElementById(`${kidName}-weight`).value)
-                ? +`${document.getElementById(`${kidName}-weight`).value}`
+            s = (Array.from(document.getElementsByName(`${kidID}-sex`)).find(r => r.checked) !== undefined) 
+                ? Array.from(document.getElementsByName(`${kidID}-sex`)).find(r => r.checked).value 
                 : null,
-            h = (document.getElementById(`${kidName}-height`).value)
-                ? +`${document.getElementById(`${kidName}-height`).value}`
+            d = document.getElementById(`${kidID}-date`).value,
+            w = (document.getElementById(`${kidID}-weight`).value)
+                ? +`${document.getElementById(`${kidID}-weight`).value}`
+                : null,
+            h = (document.getElementById(`${kidID}-height`).value)
+                ? +`${document.getElementById(`${kidID}-height`).value}`
                 : null,
             m = ((a !== undefined) && (a > 60)) 
                 ? "S"
-                :(Array.from(document.getElementsByName(`${kidName}-measure`)).find(r => r.checked) !== undefined) 
-                    ? Array.from(document.getElementsByName(`${kidName}-measure`)).find(r => r.checked).value 
+                :(Array.from(document.getElementsByName(`${kidID}-measure`)).find(r => r.checked) !== undefined) 
+                    ? Array.from(document.getElementsByName(`${kidID}-measure`)).find(r => r.checked).value 
                     : null;
 
         //Check the input
+        if(n === "" || n === null){
+            alert("Pakilagay po ang pangalan ng bata. Salamat!");
+            return;
+        }
         if(a === "" || a === null){
             alert("Pakilagay po ang edad ng bata. Salamat!");
             return;
@@ -191,7 +208,7 @@ function buildCalc(){
             return;
         }
         else if(d === "" || d === null){
-            alert("Pakilagay po ang petsa ngayon. Salamat!");
+            alert("Pakilagay po ang petsa ng pagkuha ng timbang at katangkaran ng bata. Salamat!");
             return;
         }
         else if(w === "" || w === null){
@@ -213,7 +230,7 @@ function buildCalc(){
 
         //Shows the kid's BMI
         let bmi = Math.round(((w / ((h / 100) ** 2)) * 100).toPrecision(10)) / 100;
-        document.getElementById(`${kidName}-bmi`).innerHTML = bmi;
+        document.getElementById(`${kidID}-bmi`).innerHTML = bmi;
 
         //Get the blocking 
         let bioSex, ageGroup;
@@ -245,35 +262,31 @@ function buildCalc(){
 
             if(
                 report === undefined ||
-                report.id !== `${kidName}-${at}-report`
+                report.id !== `${kidID}-${at}-report`
             ){
                 if(report) report.remove();
                 if(summary) summary.remove();
                 
-                buildReport(kidCalc, at, blocking);
+                buildReport(kidCalc, n, at, blocking);
             }
         });
 
         //Processes the input
-        if(0 <= a && a <= 120) newData(kidName, "w4a", blocking, w, a);
-        newData(kidName, "h4a", blocking, h, a);
-        newData(kidName, "bmi4a", blocking, bmi, a);
-        if(0 <= a && a <= 60) newData(kidName, "w4h", blocking, w, h);
+        if(0 <= a && a <= 120) newData(kidID, "w4a", blocking, w, a);
+        newData(kidID, "h4a", blocking, h, a);
+        newData(kidID, "bmi4a", blocking, bmi, a);
+        if(0 <= a && a <= 60) newData(kidID, "w4h", blocking, w, h);
 
         //Show the ideal weight and height
         let [idealW, idealH] = getIdeal(blocking, a);
-        document.getElementById(`${kidName}-ideal-w`).innerHTML = idealW;
-        document.getElementById(`${kidName}-ideal-h`).innerHTML = idealH;
+        document.getElementById(`${kidID}-ideal-w`).innerHTML = idealW;
+        document.getElementById(`${kidID}-ideal-h`).innerHTML = idealH;
 
         kidCalc.getElementsByClassName("summary-report")[0].style.display = "block";
     }
 
     //Removes the calculator
-    kidCalc.getElementsByClassName("rm-calc")[0].onclick = () => {
-        kidCalc.remove();
-    }
-
-    document.getElementById("calculators").insertBefore(kidCalc, document.getElementById("kid-amount-div"));
+    kidCalc.getElementsByClassName("rm-calc")[0].onclick = () => { kidCalc.remove(); }
 
     return;
 }

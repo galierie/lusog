@@ -287,3 +287,11 @@ a:hover {
   margin: 0;
 }
 
+.misc-div > div > p {
+  margin: 0;
+}
+
+.misc-div > div > label {
+  margin: 0;
+}
+

@@ -323,6 +323,12 @@ Sept. 03
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Sept. 05
+    8:36AM - 9:23AM
+        Made unique identifiers for kids
+
+        init-calc.js
+            Made kidID() to generate random identifiers for kids
+    
     9:00PM - 9:50PM
         Updated UI
 
@@ -334,3 +340,31 @@ Sept. 05
         
         Lusog.css
             Moved all custom CSS here
+    
+    10:33PM - 10:51PM
+        Massive changes to HTML element IDs
+
+        index.html
+        make-chart.js
+        calc-input.js
+            Changed "kidName" to "kidID"
+
+Sept. 06
+    5:07PM - 6:47PM
+        Massive changes to HTML element IDs
+
+        Lusog.css
+            Modified misc-div element children margins
+            
+        init-calc.js
+            Changed "kidName" to "kidID"
+            Ensured that features did not fail
+        
+        calc-input.js
+            Modified the if statement for disclaimer for undefined nutritional statuses
+    
+    10:50PM - 11:12PM
+    Fixed autoage calculator
+    
+        init-calc.js
+            Modified the date and the birthdate event listeners to consider exact dates
