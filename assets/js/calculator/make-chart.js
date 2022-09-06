@@ -60,10 +60,10 @@ function searchChart(anthroType){
 }
 
 //Makes the base z-score charts
-function baseChart(kidName, sheet, cd){
+function baseChart(kidID, sheet, cd){
     let [at, , ] = sheet.canvasID.split("-");
     
-    let chartID = `${kidName}-${at}-charts`;
+    let chartID = `${kidID}-${at}-charts`;
     let canvasChart = new Chart(chartID, {
         type: "line",
         data: {
@@ -96,12 +96,12 @@ function baseChart(kidName, sheet, cd){
 }
 
 //Gets the base z-score chart and adds the user inputs
-function inputChart(kidName, anthroID, anthroDataset){
+function inputChart(kidID, anthroID, anthroDataset){
     let [at, bioSex, ageGroup] = anthroID.split("-");
 
     let chartData = searchData(at), 
         chartList = searchChart(at),
-        chartID = `${kidName}-${at}-charts`;
+        chartID = `${kidID}-${at}-charts`;
 
     let nDatasets = chartData.find(cd => cd[0] === anthroID)[1][1].slice();
     nDatasets.push(anthroDataset);
