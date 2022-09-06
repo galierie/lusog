@@ -146,7 +146,12 @@ function buildCalc(){
             let bdate = new Date(bdateInput.value),
                 date = new Date(dateInput.value);
 
-            let age = ((date.getFullYear() - bdate.getFullYear()) * 12) + (date.getMonth() - bdate.getMonth());
+            let age = Math.round(
+                ((date.getFullYear() - bdate.getFullYear()) * 12) 
+                + (date.getMonth() - bdate.getMonth()) 
+                + ((date.getDate() - bdate.getDate()) * 0.033)
+            );
+
             ageInput.value = age;
             ageInput.dispatchEvent(new Event("change"));
         }
