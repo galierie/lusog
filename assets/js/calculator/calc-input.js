@@ -31,7 +31,7 @@ function getIdeal(blocking, age){
 function zCalc(zsData, bmy, xIndex){
     let [bc, median, coeff_var] = zsData[1][2].map(e => e[xIndex]);
     let z = (((bmy / median) ** bc) - 1) / (bc * coeff_var);
-
+    
     if(-3 <= z && z <= 3) return z;
     else {
         //Modified z-score formula for z-scores less than -3 and greater than +3 
@@ -82,7 +82,7 @@ function interpretNutriStatus(at, z){
 //Source: https://www.fantaproject.org/sites/default/files/resources/FANTA-Anthropometry-Guide-May2018.pdf?fbclid=IwAR25NpsgR2liU7bo7M8ir4PdO-hwCEPiJhWr9lHJVQBsM6Qo04Fexc1tqpI
 
 //Processes the input
-function newData(kidName, at, blocking, bmy, bmx){
+function newData(kidID, at, blocking, bmy, bmx){
     let anthroID = `${at}-${blocking}`; //Get chart ID
     
     let zsData = searchData(at).find(e => e[0] === anthroID); //Get the right group of datasets
@@ -100,32 +100,36 @@ function newData(kidName, at, blocking, bmy, bmx){
         [bmx, newBMX] = [newBMX, bmx];
     }
     let xIndex = zsData[1][0].findIndex(e => +`${e}` === bmx); //Get the right age/height/x-value
-
+    
     let z_score = Math.round((zCalc(zsData, bmy, xIndex) * 1000).toPrecision(10)) / 1000; //Calculate the z-score
     let nutri_status = interpretNutriStatus(at, z_score); //Interpret z-score
-
-    document.getElementById(`${kidName}-${at}-zs-summary`).innerHTML = z_score;
-    document.getElementById(`${kidName}-${at}-ns-summary`).innerHTML = nutri_status;
-    document.getElementById(`${kidName}-${at}-zs`).innerHTML = z_score;
-    document.getElementById(`${kidName}-${at}-ns`).innerHTML = nutri_status;
+    
+    document.getElementById(`${kidID}-${at}-zs-summary`).innerHTML = z_score;
+    document.getElementById(`${kidID}-${at}-ns-summary`).innerHTML = nutri_status;
+    document.getElementById(`${kidID}-${at}-zs`).innerHTML = z_score;
+    document.getElementById(`${kidID}-${at}-ns`).innerHTML = nutri_status;
 
     //Disclaimers if the child does not have a normal nutritional status
     if(nutri_status !== "Normal"){
-        let disclaimer = "\nDisclaimer: ";
-        disclaimer += (nutri_status.includes("Severe Acute Malnutrition")) 
-            ? "Please consult a doctor immediately."
-            : "Consulting a doctor is recommended.";
+        let note = "Consulting a doctor is recommended.";
+        if(
+            (nutri_status !== undefined) 
+            && (nutri_status.includes("Severe Acute Malnutrition"))
+        ){
+            note = "Please consult a doctor immediately.";
+        }
+        let disclaimer = `<br />Disclaimer: ${note}`;
 
-        document.getElementById(`${kidName}-${at}-ns-summary`).innerHTML += "<br />" + disclaimer;
-        document.getElementById(`${kidName}-${at}-ns`).innerHTML += "<br />" + disclaimer;
+        document.getElementById(`${kidID}-${at}-ns-summary`).innerHTML += disclaimer;
+        document.getElementById(`${kidID}-${at}-ns`).innerHTML += disclaimer;
     }
 
     //New z-score chart
     let anthroData = [];
     for(let i = 0; i < zsData[1][0].length; i++){ (xIndex === i) ? anthroData.push(bmy) : anthroData.push(null); }
 
-    let anthroDataset = new Dataset(kidName, anthroData); 
-    inputChart(kidName, anthroID, anthroDataset);
+    let anthroDataset = new Dataset(kidID, anthroData); 
+    inputChart(kidID, anthroID, anthroDataset);
 
     return;
 }
