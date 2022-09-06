@@ -362,3 +362,9 @@ Sept. 06
         
         calc-input.js
             Modified the if statement for disclaimer for undefined nutritional statuses
+    
+    10:50PM - 11:12PM
+    Fixed autoage calculator
+    
+        init-calc.js
+            Modified the date and the birthdate event listeners to consider exact dates
