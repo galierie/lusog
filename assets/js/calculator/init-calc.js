@@ -224,6 +224,32 @@ function buildCalc(){
             return;
         }
 
+        //Check anthropometric input limits
+        //Weight
+        let validInputW = true, 
+            validInputH = true;
+
+        if(275 < w || w < 0.90){
+            let wAlert = "Kung ang timbang ng bata ay mas ";
+            if(w < 0.90) wAlert += "mababa sa 0.90";
+            else if(275 < w) wAlert += "mataas sa 275";
+            wAlert += " kg, inirerekomenda na magpakonsulta na agad sa doktor. Salamat!";
+            alert(wAlert);
+
+            validInputW = false;
+        }
+
+        //Height
+        if(230 < h || h < 38){
+            let hAlert = "Kung ang katangkaran ng bata ay mas ";
+            if(h < 38) hAlert += "mababa sa 38";
+            else if(230 < h) hAlert += "mataas sa 230";
+            hAlert += " cm, inirerekomenda na magpakonsulta na agad sa doktor. Salamat!";
+            alert(hAlert);
+
+            validInputH = false;
+        }
+
         //Compute the kid's height
         if((m === "R") && (23 < a && a < 61)) h -= 0.7;
         else if((m === "S") && (a <= 23)) h += 0.7; 
@@ -272,10 +298,10 @@ function buildCalc(){
         });
 
         //Processes the input
-        if(0 <= a && a <= 120) newData(kidID, "w4a", blocking, w, a);
-        newData(kidID, "h4a", blocking, h, a);
-        newData(kidID, "bmi4a", blocking, bmi, a);
-        if(0 <= a && a <= 60) newData(kidID, "w4h", blocking, w, h);
+        if(0 <= a && a <= 120) newData(kidID, "w4a", blocking, w, a, validInputW);
+        newData(kidID, "h4a", blocking, h, a, validInputH);
+        newData(kidID, "bmi4a", blocking, bmi, a, (validInputW && validInputH));
+        if(0 <= a && a <= 60) newData(kidID, "w4h", blocking, w, h, (validInputW && validInputH));
 
         //Show the ideal weight and height
         let [idealW, idealH] = getIdeal(blocking, a);

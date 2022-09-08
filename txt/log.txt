@@ -368,3 +368,13 @@ Sept. 06
     
         init-calc.js
             Modified the date and the birthdate event listeners to consider exact dates
+
+Sept. 08
+    9:30AM - 10:45AM
+        Put input validation for weight and height
+
+        init-calc.js
+            Added if statements for weight and height input validation
+
+        calc-input.js
+            Modified newData() to consider invalid inputs
