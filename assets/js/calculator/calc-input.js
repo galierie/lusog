@@ -82,28 +82,46 @@ function interpretNutriStatus(at, z){
 //Source: https://www.fantaproject.org/sites/default/files/resources/FANTA-Anthropometry-Guide-May2018.pdf?fbclid=IwAR25NpsgR2liU7bo7M8ir4PdO-hwCEPiJhWr9lHJVQBsM6Qo04Fexc1tqpI
 
 //Processes the input
-function newData(kidID, at, blocking, bmy, bmx){
+function newData(kidID, at, blocking, bmy, bmx, validInput){
+    let z_score, nutri_status;
     let anthroID = `${at}-${blocking}`; //Get chart ID
-    
-    let zsData = searchData(at).find(e => e[0] === anthroID); //Get the right group of datasets
 
-    //If statement for weight-for-height x-value
-    if(at === "w4h"){
-        let newBMX = Math.round(bmx);
-        let d = bmx - newBMX;
-    
-        if(Math.abs(d) > 0.25){
-            if(d < 0){ newBMX -= 0.5; } 
-            else if(d > 0){ newBMX += 0.5; }
+    //See if input is valid
+    if(validInput){         
+        let zsData = searchData(at).find(e => e[0] === anthroID); //Get the right group of datasets
+
+        //If statement for weight-for-height x-value
+        if(at === "w4h"){
+            let newBMX = Math.round(bmx);
+            let d = bmx - newBMX;
+        
+            if(Math.abs(d) > 0.25){
+                if(d < 0){ newBMX -= 0.5; } 
+                else if(d > 0){ newBMX += 0.5; }
+            }
+
+            [bmx, newBMX] = [newBMX, bmx];
         }
+        let xIndex = zsData[1][0].findIndex(e => +`${e}` === bmx); //Get the right age/height/x-value
+        
+        z_score = Math.round((zCalc(zsData, bmy, xIndex) * 1000).toPrecision(10)) / 1000; //Calculate the z-score
+        nutri_status = interpretNutriStatus(at, z_score); //Interpret z-score
 
-        [bmx, newBMX] = [newBMX, bmx];
+        //New z-score chart
+        let anthroData = [];
+        for(let i = 0; i < zsData[1][0].length; i++){ (xIndex === i) ? anthroData.push(bmy) : anthroData.push(null); }
+
+        let anthroDataset = new Dataset(kidID, anthroData); 
+        inputChart(kidID, anthroID, anthroDataset);
     }
-    let xIndex = zsData[1][0].findIndex(e => +`${e}` === bmx); //Get the right age/height/x-value
-    
-    let z_score = Math.round((zCalc(zsData, bmy, xIndex) * 1000).toPrecision(10)) / 1000; //Calculate the z-score
-    let nutri_status = interpretNutriStatus(at, z_score); //Interpret z-score
-    
+    else {
+        //Don't put anything for z-score and nutritional status
+        z_score = NaN;
+        nutri_status = undefined;
+
+        inputChart(kidID, anthroID, new Dataset(kidID, [null])); //Removes traces of previous z-score chart
+    }
+
     document.getElementById(`${kidID}-${at}-zs-summary`).innerHTML = z_score;
     document.getElementById(`${kidID}-${at}-ns-summary`).innerHTML = nutri_status;
     document.getElementById(`${kidID}-${at}-zs`).innerHTML = z_score;
@@ -123,13 +141,6 @@ function newData(kidID, at, blocking, bmy, bmx){
         document.getElementById(`${kidID}-${at}-ns-summary`).innerHTML += disclaimer;
         document.getElementById(`${kidID}-${at}-ns`).innerHTML += disclaimer;
     }
-
-    //New z-score chart
-    let anthroData = [];
-    for(let i = 0; i < zsData[1][0].length; i++){ (xIndex === i) ? anthroData.push(bmy) : anthroData.push(null); }
-
-    let anthroDataset = new Dataset(kidID, anthroData); 
-    inputChart(kidID, anthroID, anthroDataset);
 
     return;
 }
