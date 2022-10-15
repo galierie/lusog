@@ -295,3 +295,21 @@ a:hover {
   margin: 0;
 }
 
+.dropdown-menu[data-bs-popper] {
+  right: 0;
+  left: -100% !important;
+}
+
+.dropdown-item {
+  text-align: right;
+}
+
+html {
+  --bs-primary-rgb: 255,186,8 !important;
+  --bs-primary: #FFBA08 !important;
+  --bs-secondary: #945600 !important;
+  --bs-secondary-rgb: 148,86,0 !important;
+  --bs-info: #32373B !important;
+  --bs-info-rgb: 50,55,59 !important;
+}
+
