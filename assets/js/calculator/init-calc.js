@@ -35,7 +35,7 @@ function buildReport(kidCalc, n, at, b){
 
     //Renames the output fields
     let rLabels = report.getElementsByTagName("label"),
-        types = ["charts", "zs", "ns"];
+        types = ["zs", "ns", "charts"];
 
     for(let i = 0; i < types.length; i++){
         let fieldID = `${kidCalc.id}-${at}-${types[i]}`;
@@ -48,10 +48,10 @@ function buildReport(kidCalc, n, at, b){
     summary.classList.add(`${at}-summary`);
     summary.id = "";
 
-    for(let i = 1; i < types.length; i++){
+    for(let i = 0; i < 2; i++){
         let fieldID = `${kidCalc.id}-${at}-${types[i]}-summary`;
         summary.getElementsByClassName(types[i])[0].id = fieldID;
-        summary.getElementsByTagName("label")[i - 1].htmlFor = fieldID;
+        summary.getElementsByTagName("label")[i].htmlFor = fieldID;
     }
 
     //Adds the event listener to the button
@@ -75,7 +75,7 @@ function buildReport(kidCalc, n, at, b){
             atLabel += "Weight-for-Height";
             break;
     }
-    rLabels[0].innerHTML = `${n}'s ${atLabel} Z-Score Chart: `;
+    rLabels[2].innerHTML = `${n}'s ${atLabel} Z-Score Chart: `;
     summary.getElementsByClassName("summary-title")[0].innerHTML = `${atLabel}: `;
 
     kidCalc.getElementsByClassName("actual-report")[0].appendChild(report);
@@ -173,7 +173,7 @@ function buildCalc(){
     kidCalc.getElementsByClassName("submit")[0].onclick = () => {
         //Get the input
         let n = (document.getElementById(`${kidID}-name`).value)
-                ? +`${document.getElementById(`${kidID}-name`).value}`
+                ? `${document.getElementById(`${kidID}-name`).value}`
                 : null,
             a = (document.getElementById(`${kidID}-age`).value)
                 ? +`${document.getElementById(`${kidID}-age`).value}`
@@ -318,7 +318,7 @@ function buildCalc(){
 }
 
 //Gets the number of kids to be anthropometrically measured
-document.getElementById("add-kids").onclick = () => {
+document.getElementById("add-calc").onclick = () => {
     let kidAmount = +`${document.getElementById("kid-amount").value}`;
     for(let i = 0; i < kidAmount; i++){ buildCalc(); }
     return;

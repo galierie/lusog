@@ -4,8 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - Lusog</title>
-    <meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">
+    <title>Home | Lusog</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Cabin.css">
     <link rel="stylesheet" href="assets/css/Lato.css">
@@ -21,6 +20,8 @@
     <link rel="stylesheet" href="assets/css/Responsive-Form-1.css">
     <link rel="stylesheet" href="assets/css/Responsive-Form.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 
 <body>
@@ -28,9 +29,9 @@
         <div class="container"><a class="navbar-brand" href="index.html" style="font-family: Montserrat, sans-serif;--bs-body-font-weight: bold;font-weight: bold;">lusog</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#calculators">Magkalkula ng Kalagayan ng Nutrisyon</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contacts">Makipag-ugnayan sa Amin</a></li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown">Mga Impormasyon Tungkol sa</a>
+                    <li class="nav-item"><a class="nav-link" href="index.html#calculators">Magkalkula</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacts">Makipag-ugnayan</a></li>
+                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown">Magbasa</a>
                         <div class="dropdown-menu"><a class="dropdown-item" href="nutritional-info-page.html">Kalagayan ng Nutrisyon</a><a class="dropdown-item" href="oedema-info-page.html">Oedema</a><a class="dropdown-item" href="food-portions-info-page.html">Pagbahagi ng Pagkain</a></div>
                     </li>
                 </ul>
@@ -74,7 +75,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <section><input type="text" id="kid-amount"><button class="btn btn-primary" id="add-kids" type="button">Magkalkula</button></section>
+                        <section><input type="text" id="kid-amount"><button class="btn btn-primary" id="add-calc" type="button">Magkalkula</button></section>
                     </div>
                 </div>
             </div>
@@ -146,10 +147,10 @@
                                 <div class="bmi-div"><label class="form-label" for="kidID-bmi">BMI:&nbsp;</label>
                                     <p id="kidID-bmi"></p>
                                 </div>
-                                <div class="ideal-w"><label class="form-label" for="kidID-ideal-w">Ideal Weight:&nbsp;</label>
+                                <div class="ideal-w"><label class="form-label" for="kidID-ideal-w">Ulirang Timbang:&nbsp;</label>
                                     <p id="kidID-ideal-w"></p>
                                 </div>
-                                <div class="ideal-h"><label class="form-label" for="kidID-ideal-h">Ideal Height:&nbsp;</label>
+                                <div class="ideal-h"><label class="form-label" for="kidID-ideal-h">Ulirang Katangkaran:&nbsp;</label>
                                     <p id="kidID-ideal-h"></p>
                                 </div>
                             </div>
@@ -177,7 +178,6 @@
                         </div>
                         <div class="modal-body">
                             <div class="kidID-anthroType-report">
-                                <div class="chart"><label class="form-label" for="kidID-anthroType-charts">kidID's anthroType Z-Score Chart:&nbsp;</label><canvas class="charts" id="kidID-anthroType-charts"></canvas></div>
                                 <div class="status">
                                     <div class="z-score"><label class="form-label" for="kidID-anthroType-zs">Z-Score:&nbsp;</label>
                                         <p id="kidID-anthroType-zs" class="zs"></p>
@@ -186,9 +186,10 @@
                                         <p id="kidID-anthroType-ns" class="ns"></p>
                                     </div>
                                 </div>
+                                <div class="chart"><label class="form-label" for="kidID-anthroType-charts">kid's Z-Score Chart:&nbsp;</label><canvas class="charts" id="kidID-anthroType-charts"></canvas></div>
                             </div>
                         </div>
-                        <div class="modal-footer"><button class="btn btn-primary" type="button">Save</button></div>
+                        <div class="modal-footer"></div>
                     </div>
                 </div>
             </div>
@@ -268,8 +269,6 @@
     </footer>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script src="assets/js/calculator/base-data.js"></script>
     <script src="assets/js/calculator/calc-input.js"></script>
     <script src="assets/js/calculator/init-calc.js"></script>
