@@ -129,12 +129,12 @@ function newData(kidID, at, blocking, bmy, bmx, validInput){
 
     //Disclaimers if the child does not have a normal nutritional status
     if(nutri_status !== "Normal"){
-        let note = "Consulting a doctor is recommended.";
+        let note = "Inirerekomenda na magpakonsulta sa doktor.";
         if(
             (nutri_status !== undefined) 
             && (nutri_status.includes("Severe Acute Malnutrition"))
         ){
-            note = "Please consult a doctor immediately.";
+            note = "Magpakonsulta na agad sa doktor.";
         }
         let disclaimer = `<br />Disclaimer: ${note}`;
 
