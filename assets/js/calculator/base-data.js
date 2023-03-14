@@ -2,6 +2,34 @@
     Handles the base data to which user input will be compared to. 
 */
 
+//Makes datasets for the z-score charts 
+class Dataset {
+    constructor(z, d){
+        this.label = (typeof z === "number") ? `${z}SD` : z;
+        this.data = d;
+        this.fill = false;
+
+        let c = "#000000";
+        switch(z){
+            case -3:
+            case 3:
+                c = "#BB342F";
+                break;
+            case -2:
+            case 2:
+                c = "#DDA448";
+                break;
+            case -1:
+            case 0:
+            case 1:
+                c = "#1B512D";
+                break;
+        }
+        this.backgroundColor = c;
+        this.borderColor = c;
+    }
+}
+
 //Processes the base z-score data to something easily configurable
 function configData(csvData){
     let x_axis = csvData.map(cd => { return cd.x_axis; }),
