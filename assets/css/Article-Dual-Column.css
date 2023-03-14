@@ -111,3 +111,9 @@
   color: inherit;
 }
 
+.chart div {
+  display: flex;
+  flex-direction: column;
+  padding: 20px calc(var(--bs-gutter-x) * 0.5);
+}
+
